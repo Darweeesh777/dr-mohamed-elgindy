@@ -5,6 +5,14 @@
 <div class="form-card reveal">
   <h3 class="form-card__title">{{ title|default:t.form.title }}</h3>
 
+  {% if static_export %}
+  {# Static copy (no server): send visitors straight to WhatsApp or phone. #}
+  <p class="form-card__note">{% if lang == 'ar' %}لطلب استشارة أو حجز موعد، تواصل معنا مباشرة عبر واتساب أو الهاتف.{% else %}To request a consultation or book an appointment, contact us directly by WhatsApp or phone.{% endif %}</p>
+  <div class="form-card__footer">
+    {% if firm.whatsapp_url %}<a class="btn btn--ink" href="{{ firm.whatsapp_url }}" target="_blank" rel="noopener">{% if lang == 'ar' %}واتساب{% else %}WhatsApp{% endif %}</a>{% endif %}
+    {% if firm.phone %}<a class="btn btn--outline" href="tel:{{ firm.phone }}" dir="ltr">{{ firm.phone }}</a>{% endif %}
+  </div>
+  {% else %}
   {% for message in messages %}
     <p class="notice notice--success" role="status">{{ message }}</p>
   {% endfor %}
@@ -42,4 +50,5 @@
       <button class="btn btn--ink" type="submit">{{ t.form.submit }}</button>
     </div>
   </form>
+  {% endif %}
 </div>

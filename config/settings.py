@@ -164,6 +164,10 @@ FIRM = {
     'site_url': env('SITE_URL'),                      # e.g. https://example.com, used for canonical links
 }
 
+# Set by `manage.py export_static`: pages are rendered for a static host with
+# no server behind them, so the consultation form is replaced by direct contact.
+STATIC_EXPORT = env_bool('STATIC_EXPORT', False)
+
 # Official social accounts supplied by the firm (tracking parameters removed).
 # Order here is the display order; an empty URL hides that account.
 FIRM_SOCIAL = [

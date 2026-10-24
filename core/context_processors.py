@@ -76,4 +76,5 @@ def site(request):
         'built_pages': BUILT_PAGES,
         'canonical_url': alternates.get(lang, ''),
         'alternates': alternates,
+        'static_export': settings.STATIC_EXPORT,
     }
