@@ -191,6 +191,29 @@
       });
     });
 
+    // Static site: send the form to the Worker without leaving the page.
+    if (form.hasAttribute('data-static-form')) {
+      var status = form.parentNode.querySelector('[data-form-status]');
+      var submit = form.querySelector('[type="submit"]');
+      var show = function (text, ok) {
+        status.textContent = text;
+        status.className = 'notice ' + (ok ? 'notice--success' : 'notice--error');
+        status.hidden = false;
+        status.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      };
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        submit.disabled = true;
+        fetch(form.action, { method: 'POST', body: new FormData(form) })
+          .then(function (res) {
+            if (res.ok) { form.reset(); show(form.dataset.msgSent, true); }
+            else show(res.status === 400 ? form.dataset.msgInvalid : form.dataset.msgFailed, false);
+          })
+          .catch(function () { show(form.dataset.msgFailed, false); })
+          .then(function () { submit.disabled = false; });
+      });
+    }
+
     if (form.hasAttribute('data-has-errors')) {
       var invalid = form.querySelector('[aria-invalid="true"]');
       if (invalid) invalid.focus();

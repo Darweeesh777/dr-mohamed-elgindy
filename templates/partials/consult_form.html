@@ -5,14 +5,6 @@
 <div class="form-card reveal">
   <h3 class="form-card__title">{{ title|default:t.form.title }}</h3>
 
-  {% if static_export %}
-  {# Static copy (no server): send visitors straight to WhatsApp or phone. #}
-  <p class="form-card__note">{% if lang == 'ar' %}لطلب استشارة أو حجز موعد، تواصل معنا مباشرة عبر واتساب أو الهاتف.{% else %}To request a consultation or book an appointment, contact us directly by WhatsApp or phone.{% endif %}</p>
-  <div class="form-card__footer">
-    {% if firm.whatsapp_url %}<a class="btn btn--ink" href="{{ firm.whatsapp_url }}" target="_blank" rel="noopener">{% if lang == 'ar' %}واتساب{% else %}WhatsApp{% endif %}</a>{% endif %}
-    {% if firm.phone %}<a class="btn btn--outline" href="tel:{{ firm.phone }}" dir="ltr">{{ firm.phone }}</a>{% endif %}
-  </div>
-  {% else %}
   {% for message in messages %}
     <p class="notice notice--success" role="status">{{ message }}</p>
   {% endfor %}
@@ -20,8 +12,18 @@
     <p class="notice notice--error" role="alert">{{ t.form.error_summary }}</p>
   {% endif %}
 
+  {% if static_export %}
+  {# Static copy: the Cloudflare Worker (src/worker.js) receives the form and emails it. #}
+  <p class="notice" data-form-status role="status" aria-live="polite" hidden></p>
+  <form method="post" action="/api/consultation" novalidate data-consult-form data-static-form
+        data-msg-sent="{% if lang == 'ar' %}تم إرسال طلبك. سنتواصل معك قريبًا.{% else %}Your request has been sent. We will contact you soon.{% endif %}"
+        data-msg-invalid="{{ t.form.error_summary }}"
+        data-msg-failed="{% if lang == 'ar' %}تعذّر إرسال الطلب الآن. تواصل معنا عبر واتساب أو الهاتف {{ firm.phone }}.{% else %}Your request could not be sent right now. Please contact us by WhatsApp or phone {{ firm.phone }}.{% endif %}">
+    <input type="hidden" name="language" value="{{ lang }}">
+  {% else %}
   <form method="post" action="{{ action }}" novalidate data-consult-form{% if form.errors %} data-has-errors{% endif %}>
     {% csrf_token %}
+  {% endif %}
     {% include "partials/choice_group.html" with field=form.request_type %}
     <div class="form-row">
       {% include "partials/field.html" with field=form.full_name %}
@@ -50,5 +52,4 @@
       <button class="btn btn--ink" type="submit">{{ t.form.submit }}</button>
     </div>
   </form>
-  {% endif %}
 </div>

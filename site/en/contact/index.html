@@ -219,12 +219,118 @@
 
   
   
-  <p class="form-card__note">To request a consultation or book an appointment, contact us directly by WhatsApp or phone.</p>
-  <div class="form-card__footer">
-    <a class="btn btn--ink" href="https://wa.me/201068686896" target="_blank" rel="noopener">WhatsApp</a>
-    <a class="btn btn--outline" href="tel:01068686896" dir="ltr">01068686896</a>
+
+  
+  
+  <p class="notice" data-form-status role="status" aria-live="polite" hidden></p>
+  <form method="post" action="/api/consultation" novalidate data-consult-form data-static-form
+        data-msg-sent="Your request has been sent. We will contact you soon."
+        data-msg-invalid="Your request could not be sent. Please check the highlighted fields."
+        data-msg-failed="Your request could not be sent right now. Please contact us by WhatsApp or phone 01068686896.">
+    <input type="hidden" name="language" value="en">
+  
+    <fieldset class="field choice-group">
+  <legend class="field__label">Request type<span class="field__req" aria-hidden="true">*</span></legend>
+  <div class="choice-group__options">
+    
+    <label class="choice" for="id_request_type_0"><input type="radio" name="request_type" value="consultation" id="id_request_type_0" required checked><span>Legal consultation</span></label>
+    
+    <label class="choice" for="id_request_type_1"><input type="radio" name="request_type" value="appointment" id="id_request_type_1" required><span>Appointment</span></label>
+    
   </div>
   
+</fieldset>
+
+    <div class="form-row">
+      <div class="field">
+  <label class="field__label" for="id_full_name">
+    Full name<span class="field__req" aria-hidden="true">*</span>
+  </label>
+  <input type="text" name="full_name" maxlength="120" autocomplete="name" required id="id_full_name">
+  
+  
+</div>
+
+      <div class="field">
+  <label class="field__label" for="id_phone">
+    Phone number<span class="field__req" aria-hidden="true">*</span>
+  </label>
+  <input type="tel" name="phone" maxlength="30" autocomplete="tel" dir="ltr" inputmode="tel" required aria-describedby="id_phone_helptext" id="id_phone">
+  <p class="field__help" id="id_phone_helptext">Please include your country code, e.g. +20.</p>
+  
+</div>
+
+    </div>
+    <div class="form-row">
+      <div class="field">
+  <label class="field__label" for="id_matter">
+    Type of matter<span class="field__req" aria-hidden="true">*</span>
+  </label>
+  <select name="matter" id="id_matter">
+  <option value="criminal">Criminal case</option>
+
+  <option value="felony">Felony case</option>
+
+  <option value="cassation">Cassation appeal</option>
+
+  <option value="other" selected>Other / not sure</option>
+
+</select>
+  
+  
+</div>
+
+      <div class="field">
+  <label class="field__label" for="id_email">
+    Email <span class="field__optional">(optional)</span>
+  </label>
+  <input type="email" name="email" maxlength="254" autocomplete="email" dir="ltr" id="id_email">
+  
+  
+</div>
+
+    </div>
+    <fieldset class="field choice-group">
+  <legend class="field__label">Preferred contact method<span class="field__req" aria-hidden="true">*</span></legend>
+  <div class="choice-group__options">
+    
+    <label class="choice" for="id_preferred_contact_0"><input type="radio" name="preferred_contact" value="whatsapp" id="id_preferred_contact_0" required checked><span>WhatsApp</span></label>
+    
+    <label class="choice" for="id_preferred_contact_1"><input type="radio" name="preferred_contact" value="phone" id="id_preferred_contact_1" required><span>Phone call</span></label>
+    
+    <label class="choice" for="id_preferred_contact_2"><input type="radio" name="preferred_contact" value="email" id="id_preferred_contact_2" required><span>Email</span></label>
+    
+  </div>
+  
+</fieldset>
+
+    <div class="field">
+  <label class="field__label" for="id_message">
+    Brief description of your request <span class="field__optional">(optional)</span>
+  </label>
+  <textarea name="message" cols="40" rows="4" maxlength="1000" aria-describedby="id_message_helptext" id="id_message">
+</textarea>
+  <p class="field__help" id="id_message_helptext">A general description is enough. Do not send confidential details or documents through this form.</p>
+  
+</div>
+
+
+    <div class="field field--check">
+      <label class="check" for="id_consent"><input type="checkbox" name="consent" required id="id_consent"><span>I agree to be contacted by the firm about this request.<span class="field__req" aria-hidden="true">*</span></span></label>
+      
+    </div>
+
+    <p class="form-card__privacy">By sending this request, your data is handled under our <a href="/en/privacy/">Privacy policy</a>.</p>
+
+    <div class="hp" aria-hidden="true">
+      <label for="id_website">Website</label><input type="text" name="website" tabindex="-1" autocomplete="off" id="id_website">
+    </div>
+
+    <div class="form-card__footer">
+      <p class="form-card__note">Fields marked * are required.</p>
+      <button class="btn btn--ink" type="submit">Send request</button>
+    </div>
+  </form>
 </div>
 
   </div>

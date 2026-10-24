@@ -1,10 +1,14 @@
-// Cloudflare Worker serving the static export (see `manage.py export_static`).
+// Cloudflare Worker: serves the static export (see `manage.py export_static`)
+// and handles the consultation form (src/worker.js).
 {
   "name": "dr-mohamed-elgindy",
+  "main": "src/worker.js",
   "compatibility_date": "2026-10-01",
   "assets": {
     "directory": "./site",
+    "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
   }
 }
