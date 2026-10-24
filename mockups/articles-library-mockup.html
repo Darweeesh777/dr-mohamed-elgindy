@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>Articles — Law Library mockup</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&amp;family=Jost:wght@500&amp;family=Reem+Kufi:wght@500;600&amp;display=swap">
+<style>
+:root{--ink:#171717;--gold:#B89A5E;--gold-l:#CDB383;--ivory:#F5F1E8;--muted:#BDB6A8}
+*{box-sizing:border-box}body{margin:0;width:1440px;background:#121110;color:var(--ivory);font-family:"IBM Plex Sans Arabic",sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:0 64px;height:76px;background:var(--ink);border-bottom:1px solid #2a2a2a}
+.logo{display:inline-flex;align-items:center;gap:11px;direction:ltr;font-size:19px}
+.logo .en{display:flex;flex-direction:column;align-items:flex-end;font-family:Jost;font-weight:500}
+.logo .en b{font-size:.44em;letter-spacing:.22em;color:var(--gold);font-weight:500}.logo .en span{letter-spacing:.14em}
+.logo i{width:1px;height:2.56em;background:var(--gold)}
+.logo .ar{display:flex;flex-direction:column;align-items:flex-end;direction:rtl;font-family:"Reem Kufi"}
+.logo .ar b{font-size:.6em;color:var(--gold);font-weight:500}.logo .ar span{font-size:1.2em;font-weight:600;line-height:1.05}
+nav{display:flex;gap:30px;font-size:15px;color:var(--muted)}nav .on{color:var(--ivory);border-bottom:1px solid var(--gold);padding-bottom:4px}
+.btn{background:var(--gold);color:var(--ink);padding:9px 18px;font-size:14px;font-weight:500}
+.hero{padding:56px 64px 34px;display:flex;justify-content:space-between;align-items:flex-end}
+.eyebrow{color:var(--gold);font-size:15px;display:flex;gap:12px;align-items:center}.eyebrow:before{content:"";width:28px;height:1px;background:currentColor}
+h1{font-family:"Reem Kufi";font-weight:600;font-size:56px;margin:8px 0 6px}
+.lead{color:var(--muted);font-size:17px;margin:0;max-width:560px}
+.search{display:flex;align-items:center;gap:10px;border:1px solid #3a352c;padding:12px 18px;width:340px;color:#8E887C;font-size:15px}
+.room{margin:0 64px 60px;padding:34px 40px 10px;background:radial-gradient(120% 80% at 50% 0%,#2a2018 0%,#16110d 70%);border:1px solid #3a2d20;position:relative}
+.shelf{position:relative;margin-bottom:46px}
+.label{display:flex;align-items:center;gap:12px;margin:0 6px 12px;font-family:"Reem Kufi";font-size:20px;color:var(--gold)}
+.label small{font-family:Jost;font-size:13px;color:#8E887C}
+.books{display:flex;align-items:flex-end;gap:6px;padding:0 10px;height:300px}
+.book{position:relative;width:62px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:16px 0;
+ background:linear-gradient(90deg,rgba(0,0,0,.45),rgba(255,255,255,.06) 30%,rgba(0,0,0,.25) 70%,rgba(0,0,0,.55));box-shadow:inset 0 0 0 1px rgba(184,154,94,.18)}
+.book .t{writing-mode:vertical-rl;font-size:15px;font-weight:600;color:var(--ivory);line-height:1.4;max-height:200px}
+.book .band{width:70%;height:2px;background:var(--gold);box-shadow:0 5px 0 var(--gold)}
+.book .no{font-family:Jost;font-size:12px;color:var(--gold)}
+.c1{background-color:#1b1b1b}.c2{background-color:#2b1d14}.c3{background-color:#1d2420}.c4{background-color:#2a2416}.c5{background-color:#211a1a}
+.pulled{transform:translateY(-26px);box-shadow:0 18px 30px -10px rgba(0,0,0,.8),inset 0 0 0 1px var(--gold)}
+.lean{transform:rotate(-7deg);transform-origin:bottom right;margin-inline-start:14px}
+.board{height:18px;background:linear-gradient(#5a4128,#3a2919 60%,#24190f);box-shadow:0 10px 18px rgba(0,0,0,.6)}
+.end{width:24px;height:120px;background:linear-gradient(#3a2b1c,#24190f);align-self:flex-end;margin-inline-start:auto}
+.card{position:absolute;top:150px;left:60px;width:420px;background:var(--ivory);color:var(--ink);padding:26px 28px;border-top:3px solid var(--gold);box-shadow:0 30px 60px -20px rgba(0,0,0,.9)}
+.card .cat{color:#7D6436;font-size:13px;font-weight:500}.card h3{font-family:"Reem Kufi";font-size:24px;margin:6px 0 10px;line-height:1.45}
+.card p{color:#5E5A52;font-size:14px;line-height:1.8;margin:0 0 14px}.card .meta{font-size:12px;color:#5E5A52;display:flex;gap:14px;margin-bottom:16px}
+.card .go{display:inline-block;background:var(--ink);color:var(--ivory);padding:10px 18px;font-size:14px}
+.tag{position:absolute;top:14px;left:14px;border:1px dashed var(--gold);color:var(--gold);font-size:11px;padding:1px 8px}
+.card .tag{position:static;display:inline-block;border-color:#7D6436;color:#7D6436;margin-bottom:8px}
+</style></head><body>
+<header>
+ <span class="logo"><span class="en"><b>DR. MOHAMED</b><span>ELGINDI</span></span><i></i><span class="ar"><b>د. محمد</b><span>الجندي</span></span></span>
+ <nav><span>الرئيسية</span><span>من نحن</span><span>الفيديوهات</span><span class="on">المقالات</span><span>تواصل معنا</span></nav>
+ <span class="btn">احجز موعدًا</span>
+</header>
+<section class="hero">
+ <div><p class="eyebrow">المقالات</p><h1>المكتبة القانونية</h1><p class="lead">مقالات قانونية مرتبة على رفوف بحسب موضوعها. اسحب الكتاب لتقرأه.</p></div>
+ <div class="search">⌕ ابحث في المكتبة…</div>
+</section>
+<div class="room">
+ <span class="tag">نموذج تصميم — العناوين مقترحة</span>
+ <div class="shelf">
+  <p class="label">النقض الجنائي <small>3</small></p>
+  <div class="books">
+   <div class="book c1" style="height:270px"><span class="band"></span><span class="t">ما هو الطعن بالنقض ومتى يجوز؟</span><span class="no">01</span></div>
+   <div class="book c2 pulled" style="height:290px"><span class="band"></span><span class="t">مواعيد الطعن بالنقض وإجراءاته</span><span class="no">02</span></div>
+   <div class="book c4" style="height:255px;width:56px"><span class="band"></span><span class="t">مذكرة أسباب الطعن</span><span class="no">03</span></div>
+   <div class="book c5 lean" style="height:240px;width:54px"><span class="band"></span><span class="t">قريبًا</span><span class="no">—</span></div>
+   <span class="end"></span>
+  </div>
+  <div class="board"></div>
+ </div>
+ <div class="shelf">
+  <p class="label">بطلان الإجراءات <small>2</small></p>
+  <div class="books">
+   <div class="book c3" style="height:280px"><span class="band"></span><span class="t">متى يكون القبض والتفتيش باطلًا؟</span><span class="no">04</span></div>
+   <div class="book c1" style="height:262px;width:58px"><span class="band"></span><span class="t">حقوق المتهم أثناء التحقيق</span><span class="no">05</span></div>
+   <span class="end"></span>
+  </div>
+  <div class="board"></div>
+ </div>
+ <div class="shelf">
+  <p class="label">المحاكمات وحق الدفاع <small>2</small></p>
+  <div class="books">
+   <div class="book c2" style="height:275px"><span class="band"></span><span class="t">دور المحامي في مرحلة التحقيق</span><span class="no">06</span></div>
+   <div class="book c4" style="height:258px;width:58px"><span class="band"></span><span class="t">الفرق بين الجناية والجنحة</span><span class="no">07</span></div>
+   <span class="end"></span>
+  </div>
+  <div class="board"></div>
+ </div>
+ <div class="card">
+  <span class="tag">نموذج</span>
+  <div class="cat">النقض الجنائي · المجلد 02</div>
+  <h3>مواعيد الطعن بالنقض وإجراءاته</h3>
+  <p>مقتطف قصير من المقال يظهر هنا بعد اعتماد المحتوى من المكتب…</p>
+  <div class="meta"><span>د. محمد الجندي</span><span>[تاريخ النشر]</span><span>6 دقائق قراءة</span></div>
+  <span class="go">اقرأ المقال</span>
+ </div>
+</div>
+</body></html>

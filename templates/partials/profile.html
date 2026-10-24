@@ -1,0 +1,15 @@
+{% comment %}Dr. Elgindi's biography and credentials, as supplied by the firm. Param: dark (bool).{% endcomment %}
+<div class="profile{% if dark %} profile--dark{% endif %}">
+  {% if t.profile.bio %}
+    {% if t.profile.title %}<p class="profile__title">{{ t.profile.title }}</p>{% endif %}
+    {% for para in t.profile.bio %}<p class="profile__para">{{ para }}</p>{% endfor %}
+  {% else %}
+    <div class="{% if dark %}tl-pending{% else %}placeholder-block{% endif %}">
+      <span class="placeholder-tag">{{ t.placeholder_tag }}</span>
+      <p>{{ t.about.bio_placeholder }}</p>
+    </div>
+  {% endif %}
+  <dl class="profile__facts">
+    {% for label, value in t.profile.credentials %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}
+  </dl>
+</div>

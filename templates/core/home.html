@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{# ── Hero ─────────────────────────────────────────────────────────── #}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <p class="eyebrow eyebrow--dark reveal">{{ t.hero.eyebrow }}</p>
+      <h1 class="hero__title reveal" id="hero-title">
+        <span class="visually-hidden">{{ t.firm_full }}</span>
+        {% include "partials/logo.html" with size="hero" decorative=True %}
+      </h1>
+      <p class="hero__lead reveal">{{ t.hero.lead }}</p>
+      <ul class="hero__areas reveal" aria-label="{{ t.hero.areas_label }}">
+        {% for area in t.hero.areas %}<li>{{ area }}</li>{% endfor %}
+      </ul>
+      <div class="hero__actions reveal">
+        <a class="btn btn--gold" href="?type=consultation#consultation" data-request-type="consultation">{{ t.cta.consult }}</a>
+        <a class="btn btn--ghost" href="?type=appointment#consultation" data-request-type="appointment">{{ t.cta.book }}</a>
+      </div>
+    </div>
+
+    <figure class="hero__media reveal">
+      <div class="frame frame--dark">
+        {% if photos.home_portrait.url %}
+          <img src="{{ photos.home_portrait.url }}" alt="{{ photos.home_portrait.alt|default:t.hero.photo_alt }}" width="800" height="1000" fetchpriority="high">
+        {% else %}
+          {# Placeholder: add the approved photo at static/images/photos/lawyer.jpg #}
+          <div class="photo-placeholder" role="img" aria-label="{{ t.hero.photo_placeholder }} ({{ t.placeholder_tag }})">
+            <span class="placeholder-tag">{{ t.placeholder_tag }}</span>
+            <span class="photo-placeholder__mark" aria-hidden="true">ج</span>
+            <span class="photo-placeholder__label">{{ t.hero.photo_placeholder }}</span>
+            <span class="photo-placeholder__hint">{{ t.hero.photo_hint }}</span>
+          </div>
+        {% endif %}
+      </div>
+    </figure>
+  </div>
+</section>
+
+{# ── Practice areas ───────────────────────────────────────────────── #}
+<section class="section section--ivory" id="practice" aria-labelledby="practice-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="eyebrow">{{ t.practice.eyebrow }}</p>
+      <h2 class="section-head__title" id="practice-title">{{ t.practice.title }}</h2>
+      <p class="section-head__intro">{{ t.practice.intro }}</p>
+    </header>
+    <ol class="practice-grid">
+      {% for item in t.practice.items %}
+      <li class="practice-card reveal">
+        <span class="practice-card__num" aria-hidden="true">{{ item.num }}</span>
+        <h3 class="practice-card__title">{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{# ── About preview ────────────────────────────────────────────────── #}
+<section class="section section--paper" id="about" aria-labelledby="about-title">
+  <div class="container about">
+    <figure class="about__media reveal">
+      <div class="frame frame--light">
+        {% if photos.home_office.url %}
+          <img src="{{ photos.home_office.url }}" alt="{{ photos.home_office.alt|default:t.about.photo_placeholder }}" width="900" height="700" loading="lazy">
+        {% else %}
+          {# Placeholder: add the approved photo at static/images/photos/office.jpg #}
+          <div class="photo-placeholder photo-placeholder--light" role="img" aria-label="{{ t.about.photo_placeholder }} ({{ t.placeholder_tag }})">
+            <span class="placeholder-tag">{{ t.placeholder_tag }}</span>
+            <span class="photo-placeholder__label">{{ t.about.photo_placeholder }}</span>
+            <span class="photo-placeholder__hint">{{ t.about.photo_hint }}</span>
+          </div>
+        {% endif %}
+      </div>
+    </figure>
+    <div class="about__content reveal">
+      <p class="eyebrow">{{ t.about.eyebrow }}</p>
+      <h2 class="section-head__title" id="about-title">{{ t.about.title }}</h2>
+      <p class="about__lead">{{ t.about.lead }}</p>
+      {% include "partials/profile.html" %}
+      <a class="link-line" href="{% url 'core:about' %}">{{ t.about.link }}</a>
+    </div>
+  </div>
+</section>
+
+{# ── Approach ─────────────────────────────────────────────────────── #}
+<section class="section section--ink" aria-labelledby="approach-title">
+  <div class="container">
+    <header class="section-head section-head--dark reveal">
+      <p class="eyebrow eyebrow--dark">{{ t.principles.eyebrow }}</p>
+      <h2 class="section-head__title" id="approach-title">{{ t.principles.title }}</h2>
+    </header>
+    <ul class="principles">
+      {% for item in t.principles.items %}
+      <li class="principle reveal">
+        <h3 class="principle__title">{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ── Case path: what the firm does at each stage ──────────────────── #}
+<section class="section section--paper case-path" id="case-path" aria-labelledby="case-path-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="eyebrow">{{ t.case_path.eyebrow }}</p>
+      <h2 class="section-head__title" id="case-path-title">{{ t.case_path.title }}</h2>
+      <p class="section-head__intro">{{ t.case_path.intro }}</p>
+    </header>
+
+    <ol class="case-path__track reveal">
+      {% for stage in case_stages %}
+      <li class="case-stage{% if stage.last %} case-stage--final{% endif %}">
+        <span class="case-stage__node" aria-hidden="true">{{ stage.number }}</span>
+        <p class="case-stage__step">{{ stage.step }}</p>
+        <h3 class="case-stage__title">{{ stage.title }}</h3>
+        <p class="case-stage__text">{{ stage.text }}</p>
+        {% if stage.video_card %}
+        <a class="case-stage__video" href="{{ stage.video_card.watch_url }}" target="_blank" rel="noopener"
+           data-video-dialog-open="{{ stage.video_card.id }}" data-title="{{ stage.video_card.title }}">
+          <span class="case-stage__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+          <span>
+            <span class="case-stage__video-label">{{ t.case_path.video_label }}{% if stage.video_card.duration %} · <span dir="ltr">{{ stage.video_card.duration }}</span>{% endif %}</span>
+            <span class="case-stage__video-title" lang="{{ stage.video_card.title_lang }}" dir="{{ stage.video_card.title_dir }}">{{ stage.video_card.title }}</span>
+          </span>
+        </a>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+
+    <div class="case-path__foot reveal">
+      <p class="case-path__note">{{ t.case_path.note }}</p>
+      <a class="link-line" href="?type=consultation#consultation" data-request-type="consultation">{{ t.case_path.cta }}</a>
+    </div>
+  </div>
+</section>
+
+{# Pop-up player for the case path explainers (filled by main.js). #}
+<dialog class="video-dialog" data-video-dialog aria-labelledby="video-dialog-title">
+  <div class="video-dialog__bar">
+    <p class="video-dialog__title" id="video-dialog-title"></p>
+    <button class="video-dialog__close" type="button" data-video-dialog-close aria-label="{{ t.case_path.close }}">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+    </button>
+  </div>
+  <div class="video-dialog__frame"></div>
+</dialog>
+
+{# ── Videos preview ───────────────────────────────────────────────── #}
+<section class="section section--ivory" aria-labelledby="videos-title">
+  <div class="container">
+    <header class="section-head section-head--row reveal">
+      <div>
+        <p class="eyebrow">{{ t.videos.eyebrow }}</p>
+        <h2 class="section-head__title" id="videos-title">{{ t.videos.title }}</h2>
+        <p class="section-head__intro">{% if video_cards %}{{ t.videos.intro_live }}{% else %}{{ t.videos.intro }}{% endif %}</p>
+      </div>
+      <div class="section-head__links">
+        {% if youtube_url %}<a class="link-line" href="{{ youtube_url }}" target="_blank" rel="noopener">{{ t.videos.youtube }}<span class="visually-hidden"> ({{ t.new_tab }})</span></a>{% endif %}
+        <a class="link-line" href="{% url 'core:videos' %}">{{ t.videos.link }}</a>
+      </div>
+    </header>
+    <ul class="card-grid">
+      {% for video in video_cards %}
+        {% include "partials/video_card.html" %}
+      {% empty %}
+      {% for _ in video_placeholders %}
+      <li class="video-card reveal">
+        <div class="video-card__thumb" aria-hidden="true">
+          <span class="video-card__play"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+        </div>
+        <div class="video-card__body">
+          <span class="placeholder-tag">{{ t.sample_tag }}</span>
+          <h3 class="video-card__title">{{ t.videos.item_title }}</h3>
+          <p class="video-card__meta">{{ t.videos.duration }}</p>
+        </div>
+      </li>
+      {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ── Articles preview ─────────────────────────────────────────────── #}
+<section class="section section--paper" aria-labelledby="articles-title">
+  <div class="container">
+    <header class="section-head section-head--row reveal">
+      <div>
+        <p class="eyebrow">{{ t.articles.eyebrow }}</p>
+        <h2 class="section-head__title" id="articles-title">{{ t.articles.title }}</h2>
+        <p class="section-head__intro">{{ t.articles.intro }}</p>
+      </div>
+      <a class="link-line" href="{% url 'core:articles' %}">{{ t.articles.link }}</a>
+    </header>
+    <ul class="card-grid">
+      {% for a in article_cards %}
+      <li class="article-card reveal">
+        <div class="article-card__top"><span class="article-card__date">{{ a.date|date:"j F Y" }}</span></div>
+        <h3 class="article-card__title" lang="{{ a.lang }}"><a href="{% url 'core:article' a.pk %}">{{ a.title }}</a></h3>
+        <p lang="{{ a.lang }}">{{ a.excerpt }}</p>
+      </li>
+      {% empty %}
+      {% for _ in articles %}
+      <li class="article-card reveal">
+        <div class="article-card__top">
+          <span class="article-card__date">{{ t.articles.date }}</span>
+          <span class="placeholder-tag">{{ t.sample_tag }}</span>
+        </div>
+        <h3 class="article-card__title">{{ t.articles.item_title }}</h3>
+        <p>{{ t.articles.excerpt }}</p>
+      </li>
+      {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ── Consultation & contact ───────────────────────────────────────── #}
+<section class="section section--ink contact" id="consultation" aria-labelledby="contact-title">
+  <div class="container contact__grid">
+    <div class="contact__info reveal">
+      <p class="eyebrow eyebrow--dark">{{ t.contact.eyebrow }}</p>
+      <h2 class="section-head__title" id="contact-title">{{ t.contact.title }}</h2>
+      <p class="contact__intro">{{ t.contact.intro }}</p>
+
+      {% if firm.whatsapp_url %}
+        <a class="btn btn--gold" href="{{ firm.whatsapp_url }}" target="_blank" rel="noopener">{{ t.contact.whatsapp }}</a>
+      {% else %}
+        <p class="btn btn--disabled" aria-disabled="true">{{ t.contact.whatsapp_pending }}</p>
+      {% endif %}
+
+      <dl class="contact__details">
+        <div><dt>{{ t.contact.phone }}</dt><dd>{% if firm.phone %}<a href="tel:{{ firm.phone }}" dir="ltr">{{ firm.phone }}</a>{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+        <div><dt>{{ t.contact.email }}</dt><dd>{% if firm.email %}<a href="mailto:{{ firm.email }}">{{ firm.email }}</a>{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+        <div><dt>{{ t.contact.address }}</dt><dd>{% if firm.address %}{{ firm.address }}{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+        <div><dt>{{ t.contact.hours }}</dt><dd>{% if firm.hours %}{{ firm.hours }}{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+      </dl>
+
+      {% if social %}
+      <div class="contact__social">
+        <p class="contact__social-title">{{ t.contact.follow }}</p>
+        {% include "partials/social_links.html" with variant="contact" %}
+      </div>
+      {% endif %}
+
+      {% if firm.maps_url %}
+        <a class="link-line link-line--dark" href="{{ firm.maps_url }}" target="_blank" rel="noopener">{{ t.contact.map }}</a>
+      {% else %}
+        <div class="map-placeholder"><span class="placeholder-tag">{{ t.placeholder_tag }}</span><span>{{ t.contact.map_placeholder }}</span></div>
+      {% endif %}
+    </div>
+
+    {% url 'core:home' as home_url %}
+    {% with action=home_url|add:"#consultation" %}{% include "partials/consult_form.html" %}{% endwith %}
+  </div>
+</section>
+
+{% endblock %}

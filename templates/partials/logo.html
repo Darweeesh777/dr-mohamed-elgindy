@@ -1,0 +1,19 @@
+{% comment %}
+  Concept 05 "Bilingual balance" lockup, rebuilt as live text so it stays sharp
+  and loads no image. Proportions follow the approved board (enlarged
+  "DR. MOHAMED" / "د. محمد"). Size it with font-size on the wrapper; every
+  part is in em. The lockup keeps its own order (English | Arabic) in both
+  page directions. Pass decorative=True when nearby text already names the firm,
+  and tone="light" on light backgrounds (ink text, deep gold accents).
+{% endcomment %}
+<span class="logo{% if size %} logo--{{ size }}{% endif %}{% if tone %} logo--{{ tone }}{% endif %}" dir="ltr"{% if decorative %} aria-hidden="true"{% else %} role="img" aria-label="Dr. Mohamed Elgindi — د. محمد الجندي"{% endif %}>
+  <span class="logo__en" aria-hidden="true">
+    <span class="logo__first">DR. MOHAMED</span>
+    <span class="logo__last">ELGINDI</span>
+  </span>
+  <span class="logo__rule" aria-hidden="true"></span>
+  <span class="logo__ar" dir="rtl" lang="ar" aria-hidden="true">
+    <span class="logo__first">د. محمد</span>
+    <span class="logo__last">الجندي</span>
+  </span>
+</span>

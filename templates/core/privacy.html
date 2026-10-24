@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.privacy.meta_title }}{% endblock %}
+{% block description %}{{ t.privacy.intro }}{% endblock %}
+{% block og_title %}{{ t.privacy.meta_title }}{% endblock %}
+
+{% block content %}
+<article class="reading" lang="{{ lang }}" dir="{{ dir }}">
+  <header class="reading__head">
+    <div class="container reading__narrow">
+      <h1 class="reading__title">{{ t.privacy.title }}</h1>
+      <p class="reading__meta">{{ t.privacy.updated }}</p>
+    </div>
+  </header>
+  <div class="container reading__narrow reading__body">
+    {% if not approved %}<p class="privacy__draft"><span class="placeholder-tag">{{ t.placeholder_tag }}</span> {{ t.privacy.draft }}</p>{% endif %}
+    <p class="reading__excerpt">{{ t.privacy.intro }}</p>
+    {% for heading, paragraphs in t.privacy.sections %}
+      <h2 class="reading__h2">{{ heading }}</h2>
+      {% for para in paragraphs %}<p>{{ para }}</p>{% endfor %}
+    {% endfor %}
+    {% if firm.email %}
+      <p>{{ t.privacy.contact }} <a href="mailto:{{ firm.email }}">{{ firm.email }}</a></p>
+    {% endif %}
+  </div>
+</article>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t.videos.meta_title }}{% endblock %}
+{% block description %}{{ t.videos.meta_description }}{% endblock %}
+{% block og_title %}{{ t.videos.meta_title }}{% endblock %}
+
+{% block content %}
+
+{# ── Page header ──────────────────────────────────────────────────── #}
+<section class="page-hero page-hero--videos{% if spotlight %} page-hero--with-spotlight{% endif %}" aria-labelledby="page-title">
+  <div class="container page-hero__grid">
+    <div class="page-hero__inner">
+      <p class="eyebrow eyebrow--dark">{{ t.videos.eyebrow }}</p>
+      <h1 class="page-hero__title" id="page-title">{{ t.videos.title }}</h1>
+      <p class="page-hero__lead">{{ t.videos.page_lead }}</p>
+      {% if youtube_url %}
+        <a class="btn btn--ghost" href="{{ youtube_url }}" target="_blank" rel="noopener">{{ t.videos.channel }}<span class="visually-hidden"> ({{ t.new_tab }})</span></a>
+      {% endif %}
+    </div>
+    {% if total %}
+    <dl class="page-hero__stat">
+      <dt>{{ t.videos.count_label }}</dt>
+      <dd>{{ total }}</dd>
+    </dl>
+    {% endif %}
+  </div>
+</section>
+
+{# ── Spotlight: the top featured video ────────────────────────────── #}
+{% if spotlight %}
+<section class="spotlight" aria-labelledby="spotlight-title">
+  <div class="container">
+  <div class="spotlight__grid reveal">
+    <div class="spotlight__media">
+      <a class="video-card__thumb spotlight__player" href="{{ spotlight.watch_url }}" target="_blank" rel="noopener"
+         data-youtube-id="{{ spotlight.id }}" data-title="{{ spotlight.title }}"
+         aria-label="{{ t.videos.play }}: {{ spotlight.title }}">
+        <img src="{{ spotlight.thumbnail_large }}" alt="" width="640" height="480" fetchpriority="high"
+             onerror="this.onerror=null;this.src='{{ spotlight.thumbnail }}'">
+        <span class="video-card__play spotlight__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+        {% if spotlight.duration %}<span class="video-card__duration" dir="ltr" aria-hidden="true">{{ spotlight.duration }}</span>{% endif %}
+      </a>
+    </div>
+    <div class="spotlight__body">
+      <p class="eyebrow">{{ t.videos.featured }}</p>
+      {% if spotlight.topic_label %}<p class="video-card__topic">{{ spotlight.topic_label }}</p>{% endif %}
+      <h2 class="spotlight__title" id="spotlight-title" lang="{{ spotlight.title_lang }}" dir="{{ spotlight.title_dir }}">{{ spotlight.title }}</h2>
+      {% if spotlight.description %}<p class="spotlight__desc">{{ spotlight.description|linebreaksbr }}</p>{% endif %}
+      <p class="video-card__meta">
+        <time datetime="{{ spotlight.date|date:'Y-m-d' }}">{{ spotlight.date|date:"j F Y" }}</time>
+        {% if spotlight.duration %}<span class="video-card__sep" aria-hidden="true"></span><span>{{ t.videos.duration_label }} <span dir="ltr">{{ spotlight.duration }}</span></span>{% endif %}
+      </p>
+      <button class="btn btn--ink" type="button" data-play="{{ spotlight.id }}" hidden>{{ t.videos.watch }}</button>
+    </div>
+  </div>
+  </div>
+</section>
+{% endif %}
+
+{# ── All videos ───────────────────────────────────────────────────── #}
+<section class="section section--ivory videos-list" id="list" aria-labelledby="list-title">
+  <div class="container">
+    <h2 class="visually-hidden" id="list-title">{{ t.videos.list_heading }}</h2>
+
+    {% if topics|length > 2 %}
+    <nav class="topic-filter" aria-label="{{ t.videos.filter_label }}">
+      <ul>
+        {% for item in topics %}
+        <li>
+          <a class="topic-filter__chip{% if item.active %} is-active{% endif %}"
+             href="{% url 'core:videos' %}{% if item.key %}?topic={{ item.key }}{% endif %}#list"{% if item.active %} aria-current="true"{% endif %}>
+            {{ item.label }} <span class="topic-filter__count">{{ item.count }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+    {% endif %}
+
+    {% if video_cards %}
+      <ul class="card-grid">
+        {% for video in video_cards %}
+          {% include "partials/video_card.html" with show_description=True %}
+        {% endfor %}
+      </ul>
+
+      {% if page_obj.has_other_pages %}
+      <nav class="pagination" aria-label="{{ t.videos.pagination }}">
+        {% if page_obj.has_previous %}
+          <a class="pagination__link" href="?{% if topic %}topic={{ topic }}&amp;{% endif %}page={{ page_obj.previous_page_number }}#list" rel="prev">{{ t.videos.prev }}</a>
+        {% else %}
+          <span class="pagination__link is-disabled" aria-hidden="true">{{ t.videos.prev }}</span>
+        {% endif %}
+        <span class="pagination__status" aria-current="page">{{ t.videos.page_label }} {{ page_obj.number }} {{ t.videos.of }} {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+          <a class="pagination__link" href="?{% if topic %}topic={{ topic }}&amp;{% endif %}page={{ page_obj.next_page_number }}#list" rel="next">{{ t.videos.next }}</a>
+        {% else %}
+          <span class="pagination__link is-disabled" aria-hidden="true">{{ t.videos.next }}</span>
+        {% endif %}
+      </nav>
+      {% endif %}
+    {% elif topic %}
+      <div class="empty-state"><p>{{ t.videos.topic_empty }}</p></div>
+    {% elif not spotlight %}
+      <div class="empty-state">
+        <p>{{ t.videos.empty }}</p>
+        {% if youtube_url %}<a class="link-line" href="{{ youtube_url }}" target="_blank" rel="noopener">{{ t.videos.channel }}<span class="visually-hidden"> ({{ t.new_tab }})</span></a>{% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{# ── Consultation call to action ──────────────────────────────────── #}
+<section class="cta-band" aria-labelledby="cta-title">
+  <div class="container cta-band__inner">
+    <div>
+      <h2 class="cta-band__title" id="cta-title">{{ t.videos.cta_title }}</h2>
+      <p class="cta-band__text">{{ t.videos.cta_text }}</p>
+    </div>
+    <div class="hero__actions">
+      <a class="btn btn--gold" href="{% url 'core:home' %}?type=consultation#consultation">{{ t.cta.consult }}</a>
+      <a class="btn btn--ghost" href="{% url 'core:home' %}?type=appointment#consultation">{{ t.cta.book }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

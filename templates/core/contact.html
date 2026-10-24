@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% comment %}
+  Contact Us, on light grounds. The hero is composed like the logo: text, a gold
+  rule, and the firm's business card. Visitors then pick a route by situation
+  (urgent / case in court / enquiry), send the form, or plan a visit.
+{% endcomment %}
+
+{% block title %}{{ t.contact_page.meta_title }}{% endblock %}
+{% block description %}{{ t.contact_page.meta_description }}{% endblock %}
+{% block og_title %}{{ t.contact_page.meta_title }}{% endblock %}
+
+{% block content %}
+
+{# ── Hero: text | gold rule | business card ───────────────────────── #}
+<section class="contact-hero" aria-labelledby="page-title">
+  <div class="container contact-hero__grid">
+    <div class="contact-hero__text">
+      <p class="eyebrow reveal">{{ t.nav.contact }}</p>
+      <h1 class="contact-hero__title reveal" id="page-title">{{ t.contact_page.title }}</h1>
+      <p class="contact-hero__lead reveal">{{ t.contact_page.lead }}</p>
+    </div>
+
+    <span class="contact-hero__rule" aria-hidden="true"></span>
+
+    <figure class="biz-card reveal" aria-labelledby="card-label">
+      <figcaption class="visually-hidden" id="card-label">{{ t.contact_page.card_label }}</figcaption>
+      <div class="biz-card__top">
+        {% include "partials/logo.html" with size="card" tone="light" %}
+      </div>
+      <dl class="biz-card__rows">
+        <div>
+          <dt>{{ t.contact.phone }}</dt>
+          <dd>{% if firm.phone %}<a href="tel:{{ firm.phone }}" dir="ltr">{{ firm.phone }}</a>{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd>
+        </div>
+        <div>
+          <dt>{{ t.contact_page.whatsapp }}</dt>
+          <dd>{% if firm.whatsapp_url %}<a href="{{ firm.whatsapp_url }}" target="_blank" rel="noopener" dir="ltr">{{ firm.whatsapp_display }}</a>{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd>
+        </div>
+        <div>
+          <dt>{{ t.contact.email }}</dt>
+          <dd>{% if firm.email %}<a href="mailto:{{ firm.email }}">{{ firm.email }}</a>{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd>
+        </div>
+        <div>
+          <dt>{{ t.contact.address }}</dt>
+          <dd>{% if firm.address %}{{ firm.address }}{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd>
+        </div>
+      </dl>
+    </figure>
+  </div>
+</section>
+
+{# ── Where to start: three routes by situation ────────────────────── #}
+<section class="section section--ivory routes" aria-labelledby="routes-title">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="eyebrow">{{ t.contact_page.routes_eyebrow }}</p>
+      <h2 class="section-head__title" id="routes-title">{{ t.contact_page.routes_title }}</h2>
+    </header>
+    <ol class="routes__grid">
+      {% for route in t.contact_page.routes %}
+      <li class="route route--{{ route.kind }} reveal">
+        <span class="route__num">{{ route.num }}</span>
+        <h3 class="route__title">{{ route.title }}</h3>
+        <p class="route__text">{{ route.text }}</p>
+        <div class="route__actions">
+          {% if route.kind == 'urgent' %}
+            {% if firm.phone or firm.whatsapp_url %}
+              {% if firm.phone %}<a class="btn btn--ink" href="tel:{{ firm.phone }}">{{ t.contact_page.call }}</a>{% endif %}
+              {% if firm.whatsapp_url %}<a class="btn btn--outline" href="{{ firm.whatsapp_url }}" target="_blank" rel="noopener">{{ t.contact_page.whatsapp }}</a>{% endif %}
+            {% else %}
+              <p class="route__pending"><span class="placeholder-tag">{{ t.placeholder_tag }}</span> {{ t.contact_page.direct_pending }}</p>
+            {% endif %}
+          {% elif route.kind == 'consultation' %}
+            <a class="btn btn--ink" href="?type=consultation#consultation" data-request-type="consultation">{{ t.cta.consult }}</a>
+          {% else %}
+            <a class="btn btn--ink" href="?type=appointment#consultation" data-request-type="appointment">{{ t.cta.book }}</a>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{# ── Form + what happens next ─────────────────────────────────────── #}
+<section class="section section--paper" id="consultation" aria-labelledby="form-title">
+  <div class="container contact-form__grid">
+    <div class="contact-form__aside reveal">
+      <p class="eyebrow">{{ t.contact_page.form_eyebrow }}</p>
+      <h2 class="section-head__title" id="form-title">{{ t.contact_page.after_title }}</h2>
+      <ol class="next-steps">
+        {% for step in t.contact_page.after_steps %}
+        <li><span class="next-steps__num">{{ forloop.counter }}</span><span>{{ step }}</span></li>
+        {% endfor %}
+      </ol>
+      <p class="contact-form__note">{{ t.contact_page.after_note }}</p>
+    </div>
+    {% url 'core:contact' as contact_url %}
+    {% with action=contact_url|add:"#consultation" title=t.contact_page.form_title %}{% include "partials/consult_form.html" %}{% endwith %}
+  </div>
+</section>
+
+{# ── Visit the office ─────────────────────────────────────────────── #}
+<section class="section section--ivory" aria-labelledby="visit-title">
+  <div class="container visit__grid">
+    <div class="visit__details reveal">
+      <p class="eyebrow">{{ t.contact_page.visit_eyebrow }}</p>
+      <h2 class="section-head__title" id="visit-title">{{ t.contact_page.visit_title }}</h2>
+      <dl class="visit__list">
+        <div><dt>{{ t.contact.address }}</dt><dd>{% if firm.address %}{{ firm.address }}{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+        <div><dt>{{ t.contact.hours }}</dt><dd>{% if firm.hours %}{{ firm.hours }}{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+      </dl>
+      {% if firm.google_business_url %}
+        <p class="visit__google"><a class="link-line" href="{{ firm.google_business_url }}" target="_blank" rel="noopener">{{ t.google_business }}<span class="visually-hidden"> ({{ t.new_tab }})</span></a></p>
+      {% endif %}
+      {% if social %}
+      <div class="visit__social">
+        <p class="visit__social-title">{{ t.contact.follow }}</p>
+        {% include "partials/social_links.html" with variant="light" %}
+      </div>
+      {% endif %}
+    </div>
+
+    {% if firm.map_embed_url %}
+    <div class="map-card map-card--live reveal">
+      <iframe class="map-card__frame" src="{{ firm.map_embed_url }}" title="{{ t.contact.map }}"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      {% if firm.maps_url %}<a class="btn btn--ink map-card__btn" href="{{ firm.maps_url }}" target="_blank" rel="noopener">{{ t.contact_page.map_open }}<span class="visually-hidden"> ({{ t.new_tab }})</span></a>{% endif %}
+    </div>
+    {% else %}
+    <div class="map-card reveal">
+      <svg class="map-card__grid" viewBox="0 0 400 260" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 70H400M0 150H400M0 215H400M90 0V260M210 0V260M320 0V260M0 240L400 30" fill="none" stroke="currentColor" stroke-width="1"/>
+      </svg>
+      <span class="map-card__pin" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26"><path d="M12 22s7-7.2 7-12.5A7 7 0 0 0 5 9.5C5 14.8 12 22 12 22z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="9.5" r="2.4" fill="currentColor"/></svg>
+      </span>
+      {% if firm.maps_url %}
+        <a class="btn btn--ink map-card__btn" href="{{ firm.maps_url }}" target="_blank" rel="noopener">{{ t.contact_page.map_open }}<span class="visually-hidden"> ({{ t.new_tab }})</span></a>
+      {% else %}
+        <p class="map-card__pending"><span class="placeholder-tag">{{ t.placeholder_tag }}</span><span>{{ t.contact.map_placeholder }}</span></p>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

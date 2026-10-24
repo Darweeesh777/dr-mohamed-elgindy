@@ -1,0 +1,31 @@
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href="{% url 'core:home' %}" aria-label="{{ t.firm_full }} — {{ t.nav.home }}">
+      {% include "partials/logo.html" with size="header" decorative=True %}
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"
+            data-menu-toggle data-label-open="{{ t.nav.open }}" data-label-close="{{ t.nav.close }}">
+      <span class="visually-hidden" data-menu-label>{{ t.nav.open }}</span>
+      <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+
+    <div class="site-nav" id="site-nav" data-menu>
+      <nav aria-label="{{ t.nav.label }}">
+        <ul class="site-nav__list">
+          {% for item in nav %}
+          <li>
+            <a class="site-nav__link{% if item.active %} is-active{% endif %}" href="{{ item.url }}"{% if item.active %} aria-current="page"{% endif %}>
+              {{ item.label }}{% if not item.built %}<span class="soon-tag">{{ t.soon }}</span>{% endif %}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      <div class="site-nav__actions">
+        <a class="lang-switch" href="{{ alt_lang_url }}" hreflang="{{ alt_lang }}" lang="{{ alt_lang }}" aria-label="{{ t.lang_switch.aria }}">{{ t.lang_switch.label }}</a>
+        <a class="btn btn--gold btn--sm" href="{% url 'core:home' %}?type=appointment#consultation" data-request-type="appointment">{{ t.cta.book }}</a>
+      </div>
+    </div>
+  </div>
+</header>

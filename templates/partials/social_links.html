@@ -1,0 +1,21 @@
+{% comment %}
+  The firm's social accounts as icon + label links. Pass variant="footer" or variant="contact".
+{% endcomment %}
+<ul class="social social--{{ variant|default:'footer' }}">
+  {% for item in social %}
+  <li>
+    <a class="social__link" href="{{ item.url }}" target="_blank" rel="noopener" aria-label="{{ item.label }} ({{ t.new_tab }})">
+      <svg class="social__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+        {% if item.key == 'facebook' %}
+        <path fill="currentColor" d="M13.5 21.5v-8h2.7l.4-3.2h-3.1V8.3c0-.9.3-1.6 1.6-1.6h1.7V3.9a22 22 0 0 0-2.5-.1c-2.5 0-4.2 1.5-4.2 4.3v2.2H7.4v3.2h2.7v8z"/>
+        {% elif item.key == 'tiktok' %}
+        <path fill="currentColor" d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.8 5.8 0 1 0 4.9 5.7V9.1a7.4 7.4 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6z"/>
+        {% elif item.key == 'youtube' %}
+        <path fill="currentColor" fill-rule="evenodd" d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.9 4.8 12 4.8 12 4.8s-5.9 0-7.6.4a2.8 2.8 0 0 0-2 2C2 8.9 2 12 2 12s0 3.1.4 4.8a2.8 2.8 0 0 0 2 2c1.7.4 7.6.4 7.6.4s5.9 0 7.6-.4a2.8 2.8 0 0 0 2-2c.4-1.7.4-4.8.4-4.8s0-3.1-.4-4.8zM10 15.1V8.9l5.2 3.1z"/>
+        {% endif %}
+      </svg>
+      <span>{{ item.label }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>

@@ -1,0 +1,39 @@
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      {% include "partials/logo.html" with size="footer" %}
+      <p>{{ t.footer.about }}</p>
+    </div>
+
+    <nav class="site-footer__col" aria-label="{{ t.footer.nav }}">
+      <h2 class="site-footer__heading">{{ t.footer.nav }}</h2>
+      <ul>
+        {% for item in nav %}
+        <li><a href="{{ item.url }}">{{ item.label }}</a>{% if not item.built %} <span class="soon-tag">{{ t.soon }}</span>{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">{{ t.footer.contact }}</h2>
+      <dl class="site-footer__details">
+        <div><dt>{{ t.contact.phone }}</dt><dd>{% if firm.phone %}<a href="tel:{{ firm.phone }}" dir="ltr">{{ firm.phone }}</a>{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+        <div><dt>{{ t.contact.email }}</dt><dd>{% if firm.email %}<a href="mailto:{{ firm.email }}">{{ firm.email }}</a>{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+        <div><dt>{{ t.contact.address }}</dt><dd>{% if firm.address %}{{ firm.address }}{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+      </dl>
+    </div>
+
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">{{ t.footer.social }}</h2>
+      {% if social %}
+        {% include "partials/social_links.html" with variant="footer" %}
+      {% else %}
+        <p class="pending">{{ t.footer.social_pending }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© {% now "Y" %} {{ t.firm_full }}. {{ t.footer.rights }}</p>
+    <p class="site-footer__legal"><a href="{% url 'core:privacy' %}">{{ t.privacy_link }}</a>{% if firm.google_business_url %} · <a href="{{ firm.google_business_url }}" target="_blank" rel="noopener">{{ t.google_business }}</a>{% endif %}</p>
+  </div>
+</footer>

@@ -1,0 +1,22 @@
+{% comment %}
+  One YouTube video. Shows only the thumbnail until play is pressed; main.js then
+  swaps in the privacy-enhanced player. Without JS the link opens the video on YouTube.
+{% endcomment %}
+<li class="video-card reveal">
+  <a class="video-card__thumb" href="{{ video.watch_url }}" target="_blank" rel="noopener"
+     data-youtube-id="{{ video.id }}" data-title="{{ video.title }}"
+     aria-label="{{ t.videos.play }}: {{ video.title }}">
+    <img src="{{ video.thumbnail }}" alt="" width="480" height="360" loading="lazy" decoding="async">
+    <span class="video-card__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+    {% if video.duration %}<span class="video-card__duration" dir="ltr" aria-hidden="true">{{ video.duration }}</span>{% endif %}
+  </a>
+  <div class="video-card__body">
+    {% if video.topic_label %}<p class="video-card__topic">{{ video.topic_label }}</p>{% endif %}
+    <h3 class="video-card__title" lang="{{ video.title_lang }}" dir="{{ video.title_dir }}">{{ video.title }}</h3>
+    {% if show_description and video.description %}<p class="video-card__desc">{{ video.description|linebreaksbr }}</p>{% endif %}
+    <p class="video-card__meta">
+      <time datetime="{{ video.date|date:'Y-m-d' }}">{{ video.date|date:"j F Y" }}</time>
+      {% if video.duration %}<span class="video-card__sep" aria-hidden="true"></span><span>{{ t.videos.duration_label }} <span dir="ltr">{{ video.duration }}</span></span>{% endif %}
+    </p>
+  </div>
+</li>

@@ -1,0 +1,14 @@
+{% comment %}
+  A photograph, or a marked placeholder until one is uploaded (admin → Site photos)
+  or placed in static/. Params: src (URL or ''), alt (slot label), photo_alt (uploaded
+  photo's description, optional), eager (optional).
+{% endcomment %}{% if src %}
+<img class="img-slot__img" src="{{ src }}" alt="{{ photo_alt|default:alt }}" width="1200" height="800"{% if eager %} fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
+{% else %}
+<div class="img-slot" role="img" aria-label="{{ alt }} ({{ t.placeholder_tag }})">
+  <span class="placeholder-tag">{{ t.placeholder_tag }}</span>
+  <span class="img-slot__mark" aria-hidden="true"></span>
+  <span class="img-slot__label">{{ alt }}</span>
+  <span class="img-slot__hint">{{ t.about_page.image_hint }}</span>
+</div>
+{% endif %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% comment %}
+  Articles as a law library: one wooden shelf per category, each article a book
+  spine. Hover/focus pulls a book out and shows its preview card; click opens it.
+  Shelves are topped up with "coming soon" volumes so they never look bare.
+{% endcomment %}
+
+{% block title %}{{ t.articles_page.meta_title }}{% endblock %}
+{% block description %}{{ t.articles_page.meta_description }}{% endblock %}
+{% block og_title %}{{ t.articles_page.meta_title }}{% endblock %}
+
+{% block content %}
+<section class="library-hero" aria-labelledby="page-title">
+  <div class="container library-hero__grid">
+    <div>
+      <p class="eyebrow eyebrow--dark reveal">{{ t.articles.eyebrow }}</p>
+      <h1 class="library-hero__title reveal" id="page-title">{{ t.articles_page.title }}</h1>
+      <p class="library-hero__lead reveal">{{ t.articles_page.lead }}</p>
+    </div>
+    <form class="library-search reveal" method="get" role="search">
+      <label class="visually-hidden" for="q">{{ t.articles_page.search }}</label>
+      <input id="q" type="search" name="q" value="{{ query }}" placeholder="{{ t.articles_page.search }}…">
+      <button type="submit">{{ t.articles_page.search_button }}</button>
+    </form>
+  </div>
+</section>
+
+<section class="library" aria-label="{{ t.articles_page.title }}">
+  <div class="container">
+    {% if query %}
+      <p class="library__results">{{ t.articles_page.results }} «{{ query }}» — {{ total }}
+        · <a href="{% url 'core:articles' %}">{{ t.articles_page.clear }}</a></p>
+      {% if not total %}<p class="library__results">{{ t.articles_page.no_results }}</p>{% endif %}
+    {% endif %}
+
+    <div class="library__room">
+      {% for shelf in shelves %}
+      {% if shelf.books or not query %}
+      <section class="shelf" aria-labelledby="shelf-{{ shelf.key }}">
+        <h2 class="shelf__label" id="shelf-{{ shelf.key }}">{{ shelf.label }} <span>{{ shelf.books|length }}</span></h2>
+        <ul class="shelf__books">
+          {% for book in shelf.books %}
+          <li class="book book--c{{ forloop.counter|divisibleby:2|yesno:'2,1' }}">
+            <a class="book__spine" href="{% url 'core:article' book.pk %}" aria-describedby="card-{{ book.pk }}">
+              <span class="book__band" aria-hidden="true"></span>
+              <span class="book__title" lang="{{ book.lang }}">{{ book.spine }}</span>
+              <span class="book__no" aria-hidden="true">{{ book.pk|stringformat:"02d" }}</span>
+            </a>
+            <div class="book__card" id="card-{{ book.pk }}" lang="{{ book.lang }}" dir="{{ book.dir }}">
+              <p class="book__cat">{{ shelf.label }}</p>
+              <p class="book__card-title">{{ book.title }}</p>
+              <p class="book__excerpt">{{ book.excerpt }}</p>
+              <p class="book__meta">{{ book.author }} · <time datetime="{{ book.date|date:'Y-m-d' }}">{{ book.date|date:"j F Y" }}</time> · {{ t.articles_page.reading }} {{ book.minutes }} {{ t.articles_page.minutes }}</p>
+              <span class="book__read" aria-hidden="true">{{ t.articles_page.read }}</span>
+            </div>
+          </li>
+          {% endfor %}
+          {% for _ in shelf.spares %}
+          <li class="book book--soon{% if forloop.last %} book--lean{% endif %}" aria-hidden="true">
+            <span class="book__spine"><span class="book__band"></span><span class="book__title">{{ t.articles_page.soon }}</span><span class="book__no">—</span></span>
+          </li>
+          {% endfor %}
+          <li class="shelf__bookend" aria-hidden="true"></li>
+        </ul>
+        {% if not shelf.books and not query %}<p class="visually-hidden">{{ t.articles_page.empty_shelf }}</p>{% endif %}
+        <div class="shelf__board" aria-hidden="true"></div>
+      </section>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% comment %}
+  About Us: a cinematic hero, then the logo's gold rule as a vertical line down
+  the centre of the page. It grows as the visitor scrolls (main.js), and the
+  sections sit alternately on either side, each marked by a gold diamond.
+  Photos come from static/images/about/ (see core/views.py ABOUT_IMAGES).
+{% endcomment %}
+
+{% block title %}{{ t.about_page.meta_title }}{% endblock %}
+{% block description %}{{ t.about_page.meta_description }}{% endblock %}
+{% block og_title %}{{ t.about_page.meta_title }}{% endblock %}
+
+{% block content %}
+
+{# ── Hero ─────────────────────────────────────────────────────────── #}
+<section class="about-hero" aria-labelledby="page-title">
+  <div class="about-hero__media">
+    {% include "partials/image_slot.html" with src=photos.about_hero.url photo_alt=photos.about_hero.alt alt=t.about_page.hero_image eager=True %}
+  </div>
+  <div class="container about-hero__inner">
+    <div class="about-hero__content">
+      <h1 class="about-hero__title reveal" id="page-title">
+        <span class="visually-hidden">{{ t.about_page.h1 }}</span>
+        {% include "partials/logo.html" with size="hero" decorative=True %}
+      </h1>
+      <p class="about-hero__kicker reveal">{{ t.about_page.kicker }}</p>
+      <ul class="about-hero__areas reveal">
+        {% for area in t.about_page.areas %}<li>{{ area }}</li>{% endfor %}
+      </ul>
+    </div>
+  </div>
+  <a class="about-hero__scroll" href="#about-firm">
+    <span class="about-hero__mouse" aria-hidden="true"><span></span></span>
+    <span>{{ t.about_page.scroll }}</span>
+  </a>
+</section>
+
+{# ── Gold-line timeline ───────────────────────────────────────────── #}
+<div class="timeline" data-timeline>
+  <div class="container timeline__inner">
+    <span class="timeline__line" aria-hidden="true"></span>
+
+    {# 01 About the firm #}
+    <section class="tl-row" id="about-firm" aria-labelledby="firm-title">
+      <div class="tl-row__text reveal">
+        <p class="tl-head"><span class="tl-head__num">{{ t.about_page.firm.num }}</span><span class="tl-head__eyebrow">{{ t.about_page.firm.eyebrow }}</span></p>
+        <h2 class="tl-row__title" id="firm-title">{{ t.about_page.firm.title }}</h2>
+        <p class="tl-row__body">{{ t.about_page.firm.text }}</p>
+        {% include "partials/profile.html" with dark=True %}
+      </div>
+      <span class="tl-marker" aria-hidden="true"></span>
+      <div class="tl-row__media reveal">
+        {% include "partials/image_slot.html" with src=photos.about_office.url photo_alt=photos.about_office.alt alt=t.about_page.firm.image %}
+      </div>
+    </section>
+
+    {# 02 Practice areas #}
+    <section class="tl-row tl-row--alt" id="about-practice" aria-labelledby="practice-title">
+      <div class="tl-row__text reveal">
+        <p class="tl-head"><span class="tl-head__num">{{ t.about_page.practice.num }}</span><span class="tl-head__eyebrow">{{ t.about_page.practice.eyebrow }}</span></p>
+        <h2 class="tl-row__title" id="practice-title">{{ t.about_page.practice.title }}</h2>
+        <ul class="tl-cards">
+          {% for item in t.about_page.practice.items %}
+          <li class="tl-card">
+            <span class="tl-card__icon">{% include "partials/icon.html" with name=item.icon %}</span>
+            <h3 class="tl-card__title">{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+        <a class="btn btn--line" href="{% url 'core:videos' %}">
+          <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+          {{ t.about_page.practice.link }}
+        </a>
+      </div>
+      <span class="tl-marker" aria-hidden="true"></span>
+      <div class="tl-row__media reveal">
+        {% include "partials/image_slot.html" with src=photos.about_practice.url photo_alt=photos.about_practice.alt alt=t.about_page.practice.image %}
+      </div>
+    </section>
+
+    {# 03 Team #}
+    <section class="tl-row" id="about-team" aria-labelledby="team-title">
+      <div class="tl-row__text reveal">
+        <p class="tl-head"><span class="tl-head__num">{{ t.about_page.team.num }}</span><span class="tl-head__eyebrow">{{ t.about_page.team.eyebrow }}</span></p>
+        <h2 class="tl-row__title" id="team-title">{{ t.about_page.team.title }}</h2>
+        <p class="tl-row__body">{{ t.about_page.team.text }}</p>
+        <div class="tl-pending">
+          <span class="placeholder-tag">{{ t.placeholder_tag }}</span>
+          <p>{{ t.about_page.team.pending }}</p>
+        </div>
+      </div>
+      <span class="tl-marker" aria-hidden="true"></span>
+      <div class="tl-row__media reveal">
+        {% include "partials/image_slot.html" with src=photos.about_team.url photo_alt=photos.about_team.alt alt=t.about_page.team.image %}
+      </div>
+    </section>
+
+    {# 04 Principles #}
+    <section class="tl-row tl-row--alt" id="about-values" aria-labelledby="values-title">
+      <div class="tl-row__text reveal">
+        <p class="tl-head"><span class="tl-head__num">{{ t.about_page.values.num }}</span><span class="tl-head__eyebrow">{{ t.about_page.values.eyebrow }}</span></p>
+        <h2 class="tl-row__title" id="values-title">{{ t.about_page.values.title }}</h2>
+        <ul class="tl-values">
+          {% for item in principles %}
+          <li class="tl-value">
+            <span class="tl-card__icon">{% include "partials/icon.html" with name=item.icon %}</span>
+            <h3 class="tl-card__title">{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <span class="tl-marker" aria-hidden="true"></span>
+      <div class="tl-row__media reveal">
+        {% include "partials/image_slot.html" with src=photos.about_values.url photo_alt=photos.about_values.alt alt=t.about_page.values.image %}
+      </div>
+    </section>
+
+    {# 05 Consultation #}
+    <section class="tl-row tl-row--cta" id="about-cta" aria-labelledby="cta-title">
+      <div class="tl-row__text reveal">
+        <p class="tl-head"><span class="tl-head__num">{{ t.about_page.cta.num }}</span><span class="tl-head__eyebrow">{{ t.about_page.cta.eyebrow }}</span></p>
+        <h2 class="tl-row__title tl-row__title--cta" id="cta-title">{{ t.about_page.cta.title }}</h2>
+        <div class="hero__actions">
+          <a class="btn btn--gold" href="{% url 'core:home' %}?type=consultation#consultation">{{ t.cta.consult }}</a>
+          <a class="btn btn--ghost" href="{% url 'core:home' %}?type=appointment#consultation">{{ t.cta.book }}</a>
+        </div>
+      </div>
+      <span class="tl-marker tl-marker--final" aria-hidden="true"></span>
+      <div class="tl-row__media tl-row__media--fade reveal">
+        {% include "partials/image_slot.html" with src=photos.about_cta.url photo_alt=photos.about_cta.alt alt=t.about_page.cta.image %}
+      </div>
+    </section>
+
+  </div>
+</div>
+{% endblock %}

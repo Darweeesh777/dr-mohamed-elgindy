@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}{% for item in nav %}{% if item.key == page %}{{ item.label }}{% endif %}{% endfor %} | {{ t.firm_name }}{% endblock %}
+{% block og_title %}{{ t.pending_page.title }} | {{ t.firm_name }}{% endblock %}
+
+{% block robots %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="pending-page">
+  <div class="container pending-page__inner">
+    <p class="eyebrow eyebrow--dark">{{ t.pending_page.eyebrow }}</p>
+    {% for item in nav %}{% if item.key == page %}<p class="pending-page__name">{{ item.label }}</p>{% endif %}{% endfor %}
+    <h1 class="pending-page__title">{{ t.pending_page.title }}</h1>
+    <p class="pending-page__text">{{ t.pending_page.text }}</p>
+    <div class="hero__actions">
+      <a class="btn btn--gold" href="{% url 'core:home' %}">{{ t.pending_page.back }}</a>
+      <a class="btn btn--ghost" href="{% url 'core:home' %}?type=consultation#consultation">{{ t.cta.consult }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
