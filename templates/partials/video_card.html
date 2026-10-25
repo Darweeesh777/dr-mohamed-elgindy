@@ -1,10 +1,11 @@
 {% comment %}
-  One YouTube video. Shows only the thumbnail until play is pressed; main.js then
-  swaps in the privacy-enhanced player. Without JS the link opens the video on YouTube.
+  One YouTube or Facebook video. Shows only the thumbnail until play is pressed;
+  main.js then swaps in the player (YouTube's privacy-enhanced one, or Facebook's).
+  Without JS the link opens the video on YouTube or Facebook.
 {% endcomment %}
 <li class="video-card reveal">
   <a class="video-card__thumb" href="{{ video.watch_url }}" target="_blank" rel="noopener"
-     data-youtube-id="{{ video.id }}" data-title="{{ video.title }}"
+     data-video-key="{{ video.id }}" {% if video.source == 'facebook' %}data-facebook-embed="{{ video.embed_url }}"{% else %}data-youtube-id="{{ video.id }}"{% endif %} data-title="{{ video.title }}"
      aria-label="{{ t.videos.play }}: {{ video.title }}">
     <img src="{{ video.thumbnail }}" alt="" width="480" height="360" loading="lazy" decoding="async">
     <span class="video-card__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>

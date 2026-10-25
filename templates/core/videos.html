@@ -33,7 +33,7 @@
   <div class="spotlight__grid reveal">
     <div class="spotlight__media">
       <a class="video-card__thumb spotlight__player" href="{{ spotlight.watch_url }}" target="_blank" rel="noopener"
-         data-youtube-id="{{ spotlight.id }}" data-title="{{ spotlight.title }}"
+         data-video-key="{{ spotlight.id }}" {% if spotlight.source == 'facebook' %}data-facebook-embed="{{ spotlight.embed_url }}"{% else %}data-youtube-id="{{ spotlight.id }}"{% endif %} data-title="{{ spotlight.title }}"
          aria-label="{{ t.videos.play }}: {{ spotlight.title }}">
         <img src="{{ spotlight.thumbnail_large }}" alt="" width="640" height="480" fetchpriority="high"
              onerror="this.onerror=null;this.src='{{ spotlight.thumbnail }}'">

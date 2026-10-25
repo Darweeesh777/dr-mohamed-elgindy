@@ -184,7 +184,7 @@ CONTENT = {
                 ]),
                 ('ملفات تعريف الارتباط والخدمات الخارجية', [
                     'يستخدم الموقع ملفات تعريف ارتباط ضرورية لعمله، لأمان النماذج وعرض رسائل التأكيد.',
-                    'كما يحمّل الموقع خطوط Google Fonts، ويعرض فيديوهات يوتيوب بوضع الخصوصية المحسّن الذي لا يُحمَّل إلا عند الضغط على التشغيل، وخريطة Google في صفحة التواصل. ولكل من هذه الخدمات سياسة خصوصية خاصة بها.',
+                    'كما يحمّل الموقع خطوط Google Fonts، ويعرض فيديوهات يوتيوب بوضع الخصوصية المحسّن الذي لا يُحمَّل إلا عند الضغط على التشغيل، وفيديوهات فيسبوك التي لا يُحمَّل مشغّلها كذلك إلا عند الضغط على التشغيل، وخريطة Google في صفحة التواصل. ولكل من هذه الخدمات سياسة خصوصية خاصة بها.',
                 ]),
                 ('مدة الاحتفاظ بالبيانات', [
                     '[يحدد المكتب المدة التي تُحفظ خلالها طلبات الاستشارة قبل حذفها.]',
@@ -554,7 +554,7 @@ CONTENT = {
                 ]),
                 ('Cookies and external services', [
                     'The site uses cookies that are necessary for it to work: for form security and to show confirmation messages.',
-                    'The site also loads Google Fonts, shows YouTube videos in privacy-enhanced mode that loads only when you press play, and a Google map on the Contact page. Each of these services has its own privacy policy.',
+                    'The site also loads Google Fonts, shows YouTube videos in privacy-enhanced mode that loads only when you press play, Facebook videos whose player also loads only when you press play, and a Google map on the Contact page. Each of these services has its own privacy policy.',
                 ]),
                 ('How long we keep it', [
                     '[The firm will specify how long consultation requests are kept before deletion.]',

@@ -221,6 +221,34 @@ class VideoTests(TestCase):
         self.assertContains(response, 'No videos have been published on the site yet.')
         self.assertNotContains(response, 'noindex')
 
+    def test_facebook_links_accepted_and_others_rejected(self):
+        for url in (
+            'https://www.facebook.com/reel/1629105785578255',
+            'https://www.facebook.com/watch/?v=1629105785578255',
+            'https://www.facebook.com/drmohamed/videos/1629105785578255/',
+            'https://fb.watch/abc123XY/',
+        ):
+            Video(title_ar='x', facebook_url=url).full_clean()
+        for url in ('https://www.facebook.com/drmohamed', 'https://example.com/reel/123'):
+            with self.assertRaises(ValidationError, msg=url):
+                Video(title_ar='x', facebook_url=url).full_clean()
+
+    def test_needs_exactly_one_link(self):
+        with self.assertRaises(ValidationError):
+            Video(title_ar='x').full_clean()
+        with self.assertRaises(ValidationError):
+            Video(title_ar='x', youtube_url='https://youtu.be/dQw4w9WgXcQ',
+                  facebook_url='https://www.facebook.com/reel/1629105785578255').full_clean()
+
+    def test_facebook_video_card_uses_facebook_player(self):
+        video = self.make(youtube_url='', facebook_url='https://www.facebook.com/reel/1629105785578255')
+        content = self.client.get('/ar/videos/').content.decode()
+        self.assertIn(f'data-video-key="fb{video.pk}"', content)
+        self.assertIn('data-facebook-embed="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1629105785578255', content)
+        self.assertIn('href="https://www.facebook.com/reel/1629105785578255"', content)
+        self.assertIn('video-facebook.svg', content)
+        self.assertNotIn('data-youtube-id=""', content)
+
     def test_videos_nav_item_no_longer_marked_soon(self):
         content = self.client.get('/en/videos/').content.decode()
         self.assertRegex(content, r'href="/en/videos/" aria-current="page">\s*Videos\s*</a>')

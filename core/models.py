@@ -1,14 +1,22 @@
 import re
+from urllib.parse import urlencode
 
 from django.core.exceptions import ValidationError
 from django.core.validators import FileExtensionValidator, RegexValidator
 from django.db import models
+from django.templatetags.static import static
 from django.utils import timezone
 
 YOUTUBE_ID_RE = re.compile(
     r'(?:youtu\.be/|youtube(?:-nocookie)?\.com/(?:watch\?(?:[^#]*&)?v=|embed/|shorts/|live/|v/))'
     r'([A-Za-z0-9_-]{11})'
 )
+# Facebook video links: reels, watch?v=, /videos/<id>, share/v/ and fb.watch short links.
+FACEBOOK_URL_RE = re.compile(
+    r'^https://(?:(?:www|m|web)\.)?(?:facebook\.com/(?:reel/\d+|watch/?\?v=\d+'
+    r'|[^/?#]+/videos/(?:[^/?#]+/)?\d+|share/[vr]/[A-Za-z0-9]+)|fb\.watch/[A-Za-z0-9_-]+)'
+)
+FACEBOOK_POSTER = 'images/video-facebook.svg'  # Facebook offers no stable public thumbnail
 
 
 TOPICS = [
@@ -28,6 +36,10 @@ def validate_photo_size(file):
         raise ValidationError(f'Image is larger than {MAX_PHOTO_MB} MB. Please compress it first.')
 
 
+def is_facebook_video_url(url):
+    return bool(FACEBOOK_URL_RE.match(url or ''))
+
+
 def extract_youtube_id(url):
     """Return the 11-character video ID from any common YouTube link, or ''."""
     match = YOUTUBE_ID_RE.search(url or '')
@@ -35,9 +47,10 @@ def extract_youtube_id(url):
 
 
 class Video(models.Model):
-    """A video hosted on YouTube and shown on the site.
+    """A video hosted on YouTube or Facebook and shown on the site.
 
-    Only the link is stored: YouTube hosts and streams the file.
+    Only the link is stored: YouTube or Facebook hosts and streams the file.
+    Each video has exactly one of the two links.
     """
 
     title_ar = models.CharField('title (Arabic)', max_length=200)
@@ -51,10 +64,14 @@ class Video(models.Model):
         help_text='Optional. Without it, no description is shown on the English site.',
     )
     youtube_url = models.URLField(
-        'YouTube link', max_length=300,
+        'YouTube link', max_length=300, blank=True,
         help_text='Any YouTube link to the video: watch, youtu.be, Shorts or live.',
     )
-    youtube_id = models.CharField(max_length=11, editable=False)
+    youtube_id = models.CharField(max_length=11, editable=False, blank=True)
+    facebook_url = models.URLField(
+        'Facebook link', max_length=300, blank=True,
+        help_text='Instead of a YouTube link: a Facebook reel or video link, e.g. https://www.facebook.com/reel/123…',
+    )
     topic = models.CharField(max_length=20, choices=TOPICS, blank=True)
     duration = models.CharField(
         max_length=8, blank=True, validators=[DURATION_VALIDATOR],
@@ -79,20 +96,44 @@ class Video(models.Model):
         return self.title_ar
 
     def clean(self):
-        if not extract_youtube_id(self.youtube_url):
+        if bool(self.youtube_url) == bool(self.facebook_url):
+            raise ValidationError('Enter either a YouTube link or a Facebook link (one of the two).')
+        if self.youtube_url and not extract_youtube_id(self.youtube_url):
             raise ValidationError({'youtube_url': 'This is not a recognised YouTube video link.'})
+        if self.facebook_url and not is_facebook_video_url(self.facebook_url):
+            raise ValidationError({'facebook_url': 'This is not a recognised Facebook video or reel link.'})
 
     def save(self, *args, **kwargs):
         self.youtube_id = extract_youtube_id(self.youtube_url)
         super().save(*args, **kwargs)
 
     @property
+    def source(self):
+        return 'youtube' if self.youtube_id else 'facebook'
+
+    @property
+    def key(self):
+        """Identifies the video's player on a page."""
+        return self.youtube_id or f'fb{self.pk}'
+
+    @property
     def thumbnail_url(self):
+        if self.source == 'facebook':
+            return static(FACEBOOK_POSTER)
         return f'https://i.ytimg.com/vi/{self.youtube_id}/hqdefault.jpg'
 
     @property
     def watch_url(self):
+        if self.source == 'facebook':
+            return self.facebook_url
         return f'https://www.youtube.com/watch?v={self.youtube_id}'
+
+    @property
+    def embed_url(self):
+        """Facebook's embedded player, or '' for a YouTube video."""
+        if self.source != 'facebook':
+            return ''
+        return 'https://www.facebook.com/plugins/video.php?' + urlencode({'href': self.facebook_url, 'show_text': 'false'})
 
     def for_language(self, lang, topic_labels=None):
         """Values for one language. A missing English title falls back to the Arabic one, marked as Arabic."""
@@ -101,7 +142,9 @@ class Video(models.Model):
         else:
             title, title_lang = self.title_ar, 'ar'
         return {
-            'id': self.youtube_id,
+            'id': self.key,
+            'source': self.source,
+            'embed_url': self.embed_url,
             'title': title,
             'title_lang': title_lang,
             'title_dir': 'rtl' if title_lang == 'ar' else 'ltr',
@@ -111,7 +154,8 @@ class Video(models.Model):
             'topic': self.topic,
             'topic_label': (topic_labels or {}).get(self.topic, ''),
             'thumbnail': self.thumbnail_url,
-            'thumbnail_large': f'https://i.ytimg.com/vi/{self.youtube_id}/sddefault.jpg',
+            'thumbnail_large': (f'https://i.ytimg.com/vi/{self.youtube_id}/sddefault.jpg'
+                                if self.source == 'youtube' else self.thumbnail_url),
             'watch_url': self.watch_url,
         }
 

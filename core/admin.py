@@ -49,7 +49,7 @@ class VideoAdmin(admin.ModelAdmin):
     date_hierarchy = 'published_on'
     readonly_fields = ('preview',)
     fieldsets = (
-        (None, {'fields': ('youtube_url', 'preview', 'topic', 'duration', 'published_on', 'is_published')}),
+        (None, {'fields': ('youtube_url', 'facebook_url', 'preview', 'topic', 'duration', 'published_on', 'is_published')}),
         ('Home page', {'fields': ('is_featured', 'position')}),
         ('Arabic', {'fields': ('title_ar', 'description_ar')}),
         ('English', {'fields': ('title_en', 'description_en')}),
@@ -61,7 +61,7 @@ class VideoAdmin(admin.ModelAdmin):
 
     @admin.display(description='Preview')
     def preview(self, obj):
-        if not obj.youtube_id:
+        if not obj.pk:
             return 'Shown after saving.'
         return format_html(
             '<a href="{}" target="_blank" rel="noopener"><img src="{}" alt="" style="width:240px;height:135px;object-fit:cover"></a>',

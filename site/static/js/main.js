@@ -88,6 +88,26 @@
     });
   });
 
+  // Facebook videos: same idea, with Facebook's embedded player (loaded only on click).
+  var FB_PLAYER = 'https://www.facebook.com/plugins/video.php?';
+  document.querySelectorAll('[data-facebook-embed]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      var src = link.dataset.facebookEmbed || '';
+      if (src.indexOf(FB_PLAYER) !== 0) return;
+      event.preventDefault();
+      var iframe = document.createElement('iframe');
+      iframe.src = src + '&autoplay=true';
+      iframe.title = link.dataset.title || '';
+      iframe.allow = 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      var frame = document.createElement('div');
+      frame.className = link.className;
+      frame.appendChild(iframe);
+      link.replaceWith(frame);
+      iframe.focus();
+    });
+  });
+
   // Pop-up player (case path explainers). Closing it removes the iframe, which
   // stops playback. Without <dialog> support the link opens YouTube instead.
   var dialog = document.querySelector('[data-video-dialog]');
@@ -120,7 +140,7 @@
   document.querySelectorAll('[data-play]').forEach(function (button) {
     button.hidden = false; // hidden in the HTML: it needs JS to work
     button.addEventListener('click', function () {
-      var thumb = document.querySelector('[data-youtube-id="' + button.dataset.play + '"]');
+      var thumb = document.querySelector('[data-video-key="' + button.dataset.play + '"]');
       if (!thumb) return;
       thumb.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
       thumb.click();

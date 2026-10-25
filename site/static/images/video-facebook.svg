@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" width="480" height="360">
+  <!-- Poster for Facebook videos, which have no stable public thumbnail. -->
+  <rect width="480" height="360" fill="#171717"/>
+  <rect x="16" y="16" width="448" height="328" fill="none" stroke="#B89A5E" stroke-opacity=".35"/>
+  <g fill="none" stroke="#B89A5E" stroke-opacity=".5">
+    <path d="M200 180H120M280 180H360"/>
+  </g>
+  <path d="M232 168l8-8 8 8-8 8z" fill="#B89A5E"/>
+  <text x="240" y="300" fill="#B89A5E" font-family="Jost, Arial, sans-serif" font-size="13" letter-spacing="4" text-anchor="middle">FACEBOOK</text>
+</svg>
