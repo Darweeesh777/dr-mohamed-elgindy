@@ -156,11 +156,11 @@ main:focus { outline: none; }
   font-family: "Reem Kufi", sans-serif;
 }
 .logo__ar .logo__first {
-  font-size: .75em;
+  font-size: .825em;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: .945; /* same line height as the approved .6em at 1.3, so الجندي stays put */
   position: relative;
-  top: .15em; /* sits a little lower, closer to the wordmark */
+  top: .1em; /* sits a little lower, closer to the wordmark */
   color: var(--gold);
 }
 .logo__ar .logo__last {
