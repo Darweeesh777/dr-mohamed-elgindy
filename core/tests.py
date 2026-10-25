@@ -122,10 +122,17 @@ class ConsultationFormTests(TestCase):
 
 
 class FirmVideosTests(TestCase):
-    """The firm's videos loaded by migration 0004."""
+    """The firm's videos loaded by migrations 0004 (YouTube) and 0018 (Facebook reel)."""
 
-    def test_twelve_videos_loaded(self):
-        self.assertEqual(Video.objects.filter(is_published=True).count(), 12)
+    def test_firm_videos_loaded(self):
+        published = Video.objects.filter(is_published=True)
+        self.assertEqual(published.count(), 13)
+        self.assertEqual(published.exclude(facebook_url='').count(), 1)
+
+    def test_facebook_reel_on_videos_page(self):
+        content = self.client.get('/ar/videos/').content.decode()
+        self.assertIn('استخراج المتهم من محبسه', content)
+        self.assertIn('reel%2F1629105785578255', content)
 
     def test_home_shows_the_three_featured_videos_in_order(self):
         content = self.client.get('/ar/').content.decode()
