@@ -15,6 +15,12 @@ def map_embed_url(coords, lang):
     return f'https://maps.google.com/maps?q={match.group(1)},{match.group(2)}&z=17&hl={lang}&output=embed'
 
 
+def asset_version():
+    """Changes whenever the stylesheet or script changes, so browsers fetch the new copy."""
+    static = settings.BASE_DIR / 'static'
+    return str(int(max((static / f).stat().st_mtime for f in ('css/style.css', 'js/main.js'))))
+
+
 def site(request):
     """Language, interface text and firm details shared by every template."""
     lang = (get_language() or settings.LANGUAGE_CODE)[:2]
@@ -78,4 +84,5 @@ def site(request):
         'canonical_url': alternates.get(lang, ''),
         'alternates': alternates,
         'static_export': settings.STATIC_EXPORT,
+        'asset_version': asset_version(),
     }
