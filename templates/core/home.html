@@ -43,20 +43,24 @@
 {# ── Practice areas ───────────────────────────────────────────────── #}
 <section class="section section--ivory" id="practice" aria-labelledby="practice-title">
   <div class="container">
-    <header class="section-head reveal">
-      <p class="eyebrow">{{ t.practice.eyebrow }}</p>
+    <header class="section-head section-head--center reveal">
+      <p class="eyebrow eyebrow--center">{{ t.practice.eyebrow }}</p>
       <h2 class="section-head__title" id="practice-title">{{ t.practice.title }}</h2>
       <p class="section-head__intro">{{ t.practice.intro }}</p>
     </header>
-    <ol class="practice-grid">
-      {% for item in t.practice.items %}
-      <li class="practice-card reveal">
-        <span class="practice-card__num" aria-hidden="true">{{ item.num }}</span>
-        <h3 class="practice-card__title">{{ item.title }}</h3>
-        <p>{{ item.text }}</p>
-      </li>
-      {% endfor %}
-    </ol>
+    {# Two cards either side of a gold line; the first sits on the reading-start side. #}
+    <div class="practice-split">
+      <ol class="practice-grid practice-grid--pair">
+        {% for item in t.practice.items %}
+        <li class="practice-card reveal">
+          <span class="practice-card__num" aria-hidden="true">{{ item.num }}</span>
+          <h3 class="practice-card__title">{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </li>
+        {% endfor %}
+      </ol>
+      <span class="practice-split__line" aria-hidden="true"></span>
+    </div>
   </div>
 </section>
 

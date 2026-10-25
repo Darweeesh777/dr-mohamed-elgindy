@@ -601,6 +601,40 @@ html[lang="en"] .section-head__title { font-weight: 500; line-height: 1.2; }
 html[lang="en"] .practice-card__title { font-weight: 500; }
 .practice-card p { margin: 0; color: var(--text-muted); }
 
+/* Home practice areas: centred heading, two cards around a gold line. */
+.section-head--center { margin-inline: auto; text-align: center; }
+.eyebrow--center::after { content: ""; width: 28px; height: 1px; background: currentColor; }
+.practice-split { position: relative; max-width: 1040px; margin-inline: auto; }
+.practice-grid--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(48px, 7vw, 96px); }
+.practice-grid--pair .practice-card { background: var(--paper); padding: clamp(32px, 3.6vw, 52px); }
+.practice-grid--pair .practice-card::before { width: clamp(56px, 6vw, 72px); height: 3px; top: -2px; }
+.practice-grid--pair .practice-card:nth-child(2)::before { inset-inline-start: auto; inset-inline-end: -1px; }
+.practice-split__line {
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 50%;
+  width: 1px;
+  background: var(--gold);
+  transform: translateX(-50%);
+}
+.practice-split__line::before,
+.practice-split__line::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  background: var(--gold);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.practice-split__line::before { top: 0; }
+.practice-split__line::after { top: 100%; }
+@media (max-width: 640px) {
+  .practice-grid--pair { gap: 20px; }
+  .practice-split__line { display: none; }
+}
+
 /* ---------- About preview ---------- */
 
 .about {
