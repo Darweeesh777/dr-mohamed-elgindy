@@ -9,9 +9,9 @@ supplied yet; replace it only with approved content.
 CONTENT = {
     'ar': {
         'meta': {
-            'title': 'د. محمد الجندي | مكتب محاماة — القضايا الجنائية والجنايات والطعن بالنقض',
+            'title': 'د. محمد الجندي | مكتب محاماة — القضايا الجنائية والطعن بالنقض الجنائي',
             'description': (
-                'مكتب د. محمد الجندي للمحاماة: القضايا الجنائية والجنايات والطعن بالنقض، '
+                'مكتب د. محمد الجندي للمحاماة: القضايا الجنائية والطعن بالنقض الجنائي، '
                 'للأفراد والشركات داخل مصر وخارجها. اطلب استشارة قانونية أو احجز موعدًا.'
             ),
             'og_locale': 'ar_EG',
@@ -42,10 +42,10 @@ CONTENT = {
         'hero': {
             'eyebrow': 'مكتب محاماة',
             'lead': (
-                'مكتب محاماة يعمل في القضايا الجنائية والجنايات والطعن بالنقض، '
+                'مكتب محاماة يعمل في القضايا الجنائية والطعن بالنقض الجنائي، '
                 'ويخدم الأفراد والشركات داخل مصر وخارجها.'
             ),
-            'areas': ['القضايا الجنائية', 'الجنايات', 'الطعن بالنقض'],
+            'areas': ['القضايا الجنائية', 'الطعن بالنقض الجنائي'],
             'areas_label': 'مجالات العمل',
             'photo_alt': 'د. محمد الجندي',
             'photo_placeholder': 'صورة د. محمد الجندي',
@@ -54,7 +54,7 @@ CONTENT = {
         'practice': {
             'eyebrow': 'مجالات العمل',
             'title': 'نطاق ممارسة المكتب',
-            'intro': 'يركّز المكتب على ثلاثة مجالات مترابطة في القانون الجنائي.',
+            'intro': 'يتخصص المكتب في القضايا الجنائية والطعن بالنقض الجنائي.',
             'items': [
                 {
                     'num': '01',
@@ -63,12 +63,7 @@ CONTENT = {
                 },
                 {
                     'num': '02',
-                    'title': 'الجنايات',
-                    'text': 'دراسة أوراق قضايا الجنايات وإعداد الدفاع فيها ومتابعتها أمام محاكم الجنايات.',
-                },
-                {
-                    'num': '03',
-                    'title': 'الطعن بالنقض',
+                    'title': 'الطعن بالنقض الجنائي',
                     'text': 'دراسة الأحكام وإعداد مذكرات الطعن بالنقض ومتابعتها أمام محكمة النقض.',
                 },
             ],
@@ -78,7 +73,7 @@ CONTENT = {
             'title': 'مكتب محاماة يعمل بروح الفريق',
             'lead': (
                 'يعمل المكتب من خلال فريق من المحامين بقيادة د. محمد الجندي، '
-                'ويتولى القضايا الجنائية والجنايات والطعن بالنقض للأفراد والشركات.'
+                'ويتولى القضايا الجنائية والطعن بالنقض الجنائي للأفراد والشركات.'
             ),
             'bio_placeholder': (
                 'تُضاف هنا النبذة المهنية المعتمدة لـ د. محمد الجندي، '
@@ -93,17 +88,17 @@ CONTENT = {
             'meta_title': 'من نحن | د. محمد الجندي — مكتب محاماة',
             'meta_description': (
                 'تعرّف على مكتب د. محمد الجندي للمحاماة: فريق عمل في القضايا الجنائية '
-                'والجنايات والطعن بالنقض، للأفراد والشركات.'
+                'والطعن بالنقض الجنائي، للأفراد والشركات.'
             ),
             'h1': 'من نحن — مكتب د. محمد الجندي للمحاماة',
             'kicker': 'مكتب محاماة',
-            'areas': ['القضايا الجنائية', 'الجنايات', 'الطعن بالنقض'],
+            'areas': ['القضايا الجنائية', 'الطعن بالنقض الجنائي'],
             'scroll': 'اكتشف المزيد',
             'image_hint': 'تُضاف الصورة المعتمدة هنا',
             'hero_image': 'صورة المكتب',
             'firm': {
                 'num': '01', 'eyebrow': 'عن المكتب', 'title': 'مكتب د. محمد الجندي للمحاماة',
-                'text': 'مكتب محاماة يعمل في القضايا الجنائية والجنايات والطعن بالنقض، من خلال فريق من المحامين بقيادة د. محمد الجندي، ويخدم الأفراد والشركات داخل مصر وخارجها.',
+                'text': 'مكتب محاماة يعمل في القضايا الجنائية والطعن بالنقض الجنائي، من خلال فريق من المحامين بقيادة د. محمد الجندي، ويخدم الأفراد والشركات داخل مصر وخارجها.',
                 'image': 'صورة المكتب',
             },
             'profile_rows': ['المؤهلات العلمية', 'سنوات الخبرة', 'القيد والعضويات المهنية'],
@@ -119,7 +114,7 @@ CONTENT = {
             },
             'team': {
                 'num': '03', 'eyebrow': 'فريق العمل', 'title': 'عمل جماعي بقيادة د. محمد الجندي',
-                'text': 'يعمل المكتب من خلال فريق من المحامين بقيادة د. محمد الجندي، يتولى القضايا الجنائية والجنايات والطعن بالنقض.',
+                'text': 'يعمل المكتب من خلال فريق من المحامين بقيادة د. محمد الجندي، يتولى القضايا الجنائية والطعن بالنقض الجنائي.',
                 'pending': 'تُضاف هنا أسماء أعضاء الفريق وأدوارهم بعد اعتمادها.',
                 'image': 'صورة فريق العمل',
             },
@@ -209,11 +204,17 @@ CONTENT = {
                 'وله إسهامات في التدريب القانوني وتأهيل شباب المحامين، ولا سيما في فن المرافعة الجنائية وبناء الدفوع ومناقشة الشهود. كما يشارك في المناقشات القانونية والإعلامية المعنية بضمانات المحاكمة العادلة وحقوق الدفاع وتطوير العدالة الجنائية.',
             ],
             'credentials': [
-                ('المؤهلات العلمية', 'ليسانس الحقوق — جامعة عين شمس (1989)، ماجستير في القانون — الأكاديمية البحرية، دكتوراه في القانون — جامعة القاهرة'),
                 ('سنوات الخبرة', '37 عامًا، منذ 1989'),
                 ('القيد', 'مقيّد أمام محكمة النقض'),
-                ('العضويات المهنية', 'نقابة المحامين، اتحاد المحامين العرب'),
             ],
+            'memberships': {
+                'label': 'العضويات المهنية',
+                'groups': [
+                    ('محلي', ['نقابة المحامين']),
+                    ('عربي وإقليمي', ['اتحاد المحامين العرب']),
+                    ('دولي', ['رابطة المحامين الدولية', 'الاتحاد الدولي للمحامين', 'الاتحاد الإفريقي للمحامين']),
+                ],
+            },
         },
         'contact_page': {
             'meta_title': 'تواصل معنا | د. محمد الجندي — مكتب محاماة',
@@ -321,7 +322,8 @@ CONTENT = {
             'intro': 'املأ النموذج وسيراجع المكتب طلبك، أو تواصل مباشرةً عبر واتساب.',
             'whatsapp': 'تواصل عبر واتساب',
             'whatsapp_pending': 'رقم واتساب يُضاف قريبًا',
-            'phone': 'الهاتف',
+            'phone': 'الهاتف المحمول',
+            'office_phone': 'هاتف المكتب',
             'email': 'البريد الإلكتروني',
             'address': 'العنوان',
             'hours': 'مواعيد العمل',
@@ -359,7 +361,7 @@ CONTENT = {
             'email_required': 'يُرجى إدخال البريد الإلكتروني إذا اخترت التواصل عبره.',
         },
         'footer': {
-            'about': 'مكتب محاماة يعمل في القضايا الجنائية والجنايات والطعن بالنقض.',
+            'about': 'مكتب محاماة يعمل في القضايا الجنائية والطعن بالنقض الجنائي.',
             'nav': 'روابط',
             'contact': 'التواصل',
             'social': 'حسابات التواصل الاجتماعي',
@@ -376,9 +378,9 @@ CONTENT = {
 
     'en': {
         'meta': {
-            'title': 'Dr. Mohamed Elgindi | Law Firm — Criminal Law, Felonies & Cassation',
+            'title': 'Dr. Mohamed Elgindi | Law Firm — Criminal Cases & Criminal Cassation',
             'description': (
-                'Dr. Mohamed Elgindi Law Firm handles criminal cases, felony cases and cassation appeals '
+                'Dr. Mohamed Elgindi Law Firm handles criminal cases and criminal cassation appeals '
                 'for individuals and companies, in Egypt and internationally. '
                 'Request a legal consultation or book an appointment.'
             ),
@@ -410,10 +412,10 @@ CONTENT = {
         'hero': {
             'eyebrow': 'Law firm',
             'lead': (
-                'A law firm handling criminal cases, felony cases and cassation appeals, '
+                'A law firm handling criminal cases and criminal cassation appeals, '
                 'serving individuals and companies in Egypt and internationally.'
             ),
-            'areas': ['Criminal Law', 'Felony Cases', 'Cassation Appeals'],
+            'areas': ['Criminal Cases', 'Criminal Cassation Appeals'],
             'areas_label': 'Practice areas',
             'photo_alt': 'Dr. Mohamed Elgindi',
             'photo_placeholder': 'Photo of Dr. Mohamed Elgindi',
@@ -422,21 +424,16 @@ CONTENT = {
         'practice': {
             'eyebrow': 'Practice areas',
             'title': 'What the firm handles',
-            'intro': 'The firm focuses on three closely related areas of criminal law.',
+            'intro': 'The firm specializes in criminal cases and criminal cassation appeals.',
             'items': [
                 {
                     'num': '01',
-                    'title': 'Criminal Law',
+                    'title': 'Criminal Cases',
                     'text': 'Representing and defending clients in criminal matters, from the investigation stage through to judgment.',
                 },
                 {
                     'num': '02',
-                    'title': 'Felony Cases',
-                    'text': 'Reviewing the case file, preparing the defence and following felony cases before the criminal courts.',
-                },
-                {
-                    'num': '03',
-                    'title': 'Cassation Appeals',
+                    'title': 'Criminal Cassation Appeals',
                     'text': 'Reviewing judgments, drafting cassation appeal memoranda and following them before the Court of Cassation.',
                 },
             ],
@@ -446,7 +443,7 @@ CONTENT = {
             'title': 'A law firm built around a team',
             'lead': (
                 'The firm works through a team of lawyers led by Dr. Mohamed Elgindi, '
-                'handling criminal cases, felony cases and cassation appeals for individuals and companies.'
+                'handling criminal cases and criminal cassation appeals for individuals and companies.'
             ),
             'bio_placeholder': (
                 "Dr. Mohamed Elgindi's approved professional biography, including qualifications "
@@ -460,18 +457,18 @@ CONTENT = {
         'about_page': {
             'meta_title': 'About Us | Dr. Mohamed Elgindi — Law Firm',
             'meta_description': (
-                'About Dr. Mohamed Elgindi Law Firm: a team handling criminal cases, felony cases '
-                'and cassation appeals for individuals and companies.'
+                'About Dr. Mohamed Elgindi Law Firm: a team handling criminal cases '
+                'and criminal cassation appeals for individuals and companies.'
             ),
             'h1': 'About Us — Dr. Mohamed Elgindi Law Firm',
             'kicker': 'Law firm',
-            'areas': ['Criminal Law', 'Felony Cases', 'Cassation Appeals'],
+            'areas': ['Criminal Cases', 'Criminal Cassation Appeals'],
             'scroll': 'Discover more',
             'image_hint': 'The approved photograph goes here',
             'hero_image': 'Photo of the office',
             'firm': {
                 'num': '01', 'eyebrow': 'About the firm', 'title': 'Dr. Mohamed Elgindi Law Firm',
-                'text': 'A law firm handling criminal cases, felony cases and cassation appeals through a team of lawyers led by Dr. Mohamed Elgindi, serving individuals and companies in Egypt and internationally.',
+                'text': 'A law firm handling criminal cases and criminal cassation appeals through a team of lawyers led by Dr. Mohamed Elgindi, serving individuals and companies in Egypt and internationally.',
                 'image': 'Photo of the office',
             },
             'profile_rows': ['Academic qualifications', 'Years of experience', 'Bar registration and memberships'],
@@ -487,7 +484,7 @@ CONTENT = {
             },
             'team': {
                 'num': '03', 'eyebrow': 'Our team', 'title': 'Teamwork led by Dr. Mohamed Elgindi',
-                'text': 'The firm works through a team of lawyers led by Dr. Mohamed Elgindi, handling criminal cases, felony cases and cassation appeals.',
+                'text': 'The firm works through a team of lawyers led by Dr. Mohamed Elgindi, handling criminal cases and criminal cassation appeals.',
                 'pending': "Team members' names and roles will be added once approved.",
                 'image': 'Photo of the team',
             },
@@ -576,8 +573,17 @@ CONTENT = {
                 ('Qualifications', 'LL.B., Ain Shams University (1989); Master of Laws, Maritime Academy; Doctorate in Law, Cairo University'),
                 ('Experience', '37 years, since 1989'),
                 ('Registration', 'Admitted before the Court of Cassation'),
-                ('Memberships', 'Egyptian Bar Association; Arab Lawyers Union'),
             ],
+            'memberships': {
+                'label': 'Memberships',
+                'groups': [
+                    ('National', ['Egyptian Bar Association']),
+                    ('Arab & Regional', ['Arab Lawyers Union — ALU']),
+                    ('International', ['International Bar Association — IBA',
+                                       'Union Internationale des Avocats — UIA',
+                                       'Pan African Lawyers Union — PALU']),
+                ],
+            },
         },
         'contact_page': {
             'meta_title': 'Contact Us | Dr. Mohamed Elgindi — Law Firm',
@@ -685,7 +691,8 @@ CONTENT = {
             'intro': 'Fill in the form and the firm will review your request, or reach us directly on WhatsApp.',
             'whatsapp': 'Contact us on WhatsApp',
             'whatsapp_pending': 'WhatsApp number to be added',
-            'phone': 'Phone',
+            'phone': 'Mobile',
+            'office_phone': 'Office phone',
             'email': 'Email',
             'address': 'Address',
             'hours': 'Working hours',
@@ -723,7 +730,7 @@ CONTENT = {
             'email_required': 'Please enter your email address if you prefer to be contacted by email.',
         },
         'footer': {
-            'about': 'A law firm handling criminal cases, felony cases and cassation appeals.',
+            'about': 'A law firm handling criminal cases and criminal cassation appeals.',
             'nav': 'Links',
             'contact': 'Contact',
             'social': 'Social media',

@@ -11,5 +11,15 @@
   {% endif %}
   <dl class="profile__facts">
     {% for label, value in t.profile.credentials %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}
+    {% with m=t.profile.memberships %}
+    <div><dt>{{ m.label }}</dt><dd>
+      {% for category, names in m.groups %}
+      <div class="profile__group">
+        <p class="profile__group-title">{{ category }}</p>
+        <ul class="profile__group-list">{% for name in names %}<li>{{ name }}</li>{% endfor %}</ul>
+      </div>
+      {% endfor %}
+    </dd></div>
+    {% endwith %}
   </dl>
 </div>

@@ -18,6 +18,7 @@
       <h2 class="site-footer__heading">{{ t.footer.contact }}</h2>
       <dl class="site-footer__details">
         <div><dt>{{ t.contact.phone }}</dt><dd>{% if firm.phone %}<a href="tel:{{ firm.phone }}" dir="ltr">{{ firm.phone }}</a>{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+        {% if firm.office_phone %}<div><dt>{{ t.contact.office_phone }}</dt><dd><a href="tel:{{ firm.office_phone }}" dir="ltr">{{ firm.office_phone }}</a></dd></div>{% endif %}
         <div><dt>{{ t.contact.email }}</dt><dd>{% if firm.email %}<a href="mailto:{{ firm.email }}">{{ firm.email }}</a>{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
         <div><dt>{{ t.contact.address }}</dt><dd>{% if firm.address %}{{ firm.address }}{% else %}<span class="pending">{{ t.contact.pending }}</span>{% endif %}</dd></div>
       </dl>

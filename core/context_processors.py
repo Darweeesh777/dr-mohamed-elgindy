@@ -27,6 +27,7 @@ def site(request):
     whatsapp_digits = re.sub(r'\D', '', firm_cfg.get('whatsapp_number', ''))
     firm = {
         'phone': firm_cfg.get('phone'),
+        'office_phone': firm_cfg.get('office_phone', ''),
         'email': firm_cfg.get('email'),
         'address': firm_cfg.get(f'address_{lang}'),
         'hours': firm_cfg.get(f'hours_{lang}'),

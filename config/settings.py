@@ -153,6 +153,7 @@ MAILERS = {
 FIRM = {
     'whatsapp_number': env('FIRM_WHATSAPP_NUMBER'),   # international format, digits only, e.g. 20XXXXXXXXXX
     'phone': env('FIRM_PHONE'),
+    'office_phone': env('FIRM_OFFICE_PHONE'),         # office landline, separate from WhatsApp
     'email': env('FIRM_EMAIL'),
     'address_ar': env('FIRM_ADDRESS_AR'),
     'address_en': env('FIRM_ADDRESS_EN'),

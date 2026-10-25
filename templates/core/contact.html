@@ -33,6 +33,12 @@
           <dt>{{ t.contact.phone }}</dt>
           <dd>{% if firm.phone %}<a href="tel:{{ firm.phone }}" dir="ltr">{{ firm.phone }}</a>{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd>
         </div>
+        {% if firm.office_phone %}
+        <div>
+          <dt>{{ t.contact.office_phone }}</dt>
+          <dd><a href="tel:{{ firm.office_phone }}" dir="ltr">{{ firm.office_phone }}</a></dd>
+        </div>
+        {% endif %}
         <div>
           <dt>{{ t.contact_page.whatsapp }}</dt>
           <dd>{% if firm.whatsapp_url %}<a href="{{ firm.whatsapp_url }}" target="_blank" rel="noopener" dir="ltr">{{ firm.whatsapp_display }}</a>{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd>
@@ -109,6 +115,7 @@
       <h2 class="section-head__title" id="visit-title">{{ t.contact_page.visit_title }}</h2>
       <dl class="visit__list">
         <div><dt>{{ t.contact.address }}</dt><dd>{% if firm.address %}{{ firm.address }}{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd></div>
+        {% if firm.office_phone %}<div><dt>{{ t.contact.office_phone }}</dt><dd><a href="tel:{{ firm.office_phone }}" dir="ltr">{{ firm.office_phone }}</a></dd></div>{% endif %}
         <div><dt>{{ t.contact.hours }}</dt><dd>{% if firm.hours %}{{ firm.hours }}{% else %}<span class="pending-light">{{ t.contact.pending }}</span>{% endif %}</dd></div>
       </dl>
       {% if firm.google_business_url %}

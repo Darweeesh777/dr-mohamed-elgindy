@@ -156,9 +156,11 @@ main:focus { outline: none; }
   font-family: "Reem Kufi", sans-serif;
 }
 .logo__ar .logo__first {
-  font-size: .6em;
+  font-size: .75em;
   font-weight: 500;
   line-height: 1.3;
+  position: relative;
+  top: .15em; /* sits a little lower, closer to the wordmark */
   color: var(--gold);
 }
 .logo__ar .logo__last {
@@ -1696,6 +1698,13 @@ html[lang="en"] .tl-card__title { font-weight: 500; }
 .profile__facts > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: .95rem; }
 .profile__facts dt { color: var(--gold-deep); }
 .profile__facts dd { margin: 0; }
+.profile__group + .profile__group { margin-top: 10px; }
+.profile__group-title { margin: 0 0 2px; font-size: .82rem; letter-spacing: .04em; color: var(--text-muted); }
+.profile__group-list { margin: 0; padding: 0; list-style: none; }
+.profile__group-list li { padding-inline-start: 14px; position: relative; }
+.profile__group-list li::before { content: ""; position: absolute; inset-inline-start: 0; top: .7em; width: 5px; height: 5px; background: var(--gold-deep); transform: rotate(45deg); }
+.profile--dark .profile__group-title { color: var(--muted-on-dark); }
+.profile--dark .profile__group-list li::before { background: var(--gold); }
 .profile--dark .profile__title,
 .profile--dark .profile__facts dt { color: var(--gold); }
 .profile--dark .profile__para { color: var(--muted-on-dark); }
